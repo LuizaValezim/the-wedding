@@ -1,21 +1,77 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+
+interface Guest {
+  id: string;
+  name: string;
+  email: string;
+  rsvpStatus: 'pending' | 'confirmed' | 'declined';
+  plusOnes: number;
+  dietary: string;
+}
+
+interface BudgetItem {
+  id: string;
+  category: string;
+  description: string;
+  estimated: number;
+  actual: number;
+}
+
 export default function Dashboard() {
+  const [guests, setGuests] = useState<Guest[]>([]);
+  const [budgetItems, setBudgetItems] = useState<BudgetItem[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  // Load guests and budget data from localStorage on mount
+  useEffect(() => {
+    const savedGuests = localStorage.getItem('weddingGuests');
+    if (savedGuests) {
+      try {
+        setGuests(JSON.parse(savedGuests));
+      } catch (e) {
+        console.error('Failed to load guests from localStorage', e);
+      }
+    }
+
+    const savedBudget = localStorage.getItem('weddingBudget');
+    if (savedBudget) {
+      try {
+        setBudgetItems(JSON.parse(savedBudget));
+      } catch (e) {
+        console.error('Failed to load budget from localStorage', e);
+      }
+    }
+    setIsLoaded(true);
+  }, []);
+
+  // Calculate statistics
+  const totalGuests = guests.length;
+  const rsvpConfirmed = guests.filter((g) => g.rsvpStatus === 'confirmed').length;
+  const totalPlusOnes = guests.reduce((sum, g) => sum + g.plusOnes, 0);
+  const totalPeople = totalGuests + totalPlusOnes;
+  const totalEstimatedCost = budgetItems.reduce((sum, item) => sum + item.estimated, 0);
+  const totalActualCost = budgetItems.reduce((sum, item) => sum + item.actual, 0);
+
   const stats = {
-    totalGuests: 156,
-    rsvpConfirmed: 142,
+    totalEstimatedCost,
+    totalActualCost,
+    totalGuests,
+    totalPlusOnes,
+    totalPeople,
+    rsvpConfirmed,
     honeymoonFunded: 8500,
     honeymoonGoal: 15000,
-    tasksCompleted: 23,
-    tasksTotal: 45,
   };
 
   const menuItems = [
     { href: '/guests', label: 'Guests', icon: '👥' },
     { href: '/budget', label: 'Budget', icon: '💰' },
-    { href: '/tables', label: 'Seating', icon: '🪑' },
-    { href: '/tasks', label: 'Checklist', icon: '✓' },
-    { href: '/suppliers', label: 'Suppliers', icon: '🏢' },
-    { href: '/venues', label: 'Venues', icon: '🏛️' },
     { href: '/inspirations', label: 'Inspiration', icon: '🎨' },
+    { href: '/tasks', label: 'Checklist', icon: '✓' },
+    { href: '/venues', label: 'Venues', icon: '🏛️' },
+    { href: '/suppliers', label: 'Suppliers', icon: '🏢' },
     { href: '/honeymoon', label: 'Honeymoon', icon: '✈️' },
   ];
 
@@ -35,20 +91,24 @@ export default function Dashboard() {
         {/* Stats Grid */}
         <div className="grid md:grid-cols-4 gap-6 mb-12">
           <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
-            <h3 className="text-gray-600 dark:text-gray-400 text-sm font-semibold">Total Guests</h3>
-            <p className="text-3xl font-bold mt-2">{stats.totalGuests}</p>
+            <h3 className="text-gray-600 dark:text-gray-400 text-sm font-semibold">Total Cost</h3>
+            <p className="text-3xl font-bold mt-2">${stats.totalEstimatedCost.toLocaleString()}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Budget estimated</p>
+          </div>
+          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
+            <h3 className="text-gray-600 dark:text-gray-400 text-sm font-semibold">Number of People</h3>
+            <p className="text-3xl font-bold mt-2">{stats.totalPeople}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{stats.totalGuests} guests + {stats.totalPlusOnes} plus ones</p>
           </div>
           <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
             <h3 className="text-gray-600 dark:text-gray-400 text-sm font-semibold">RSVP Confirmed</h3>
             <p className="text-3xl font-bold mt-2">{stats.rsvpConfirmed}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">of {stats.totalGuests}</p>
           </div>
           <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
             <h3 className="text-gray-600 dark:text-gray-400 text-sm font-semibold">Honeymoon Fund</h3>
-            <p className="text-3xl font-bold mt-2">${stats.honeymoonFunded}/${stats.honeymoonGoal}</p>
-          </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
-            <h3 className="text-gray-600 dark:text-gray-400 text-sm font-semibold">Tasks Completed</h3>
-            <p className="text-3xl font-bold mt-2">{stats.tasksCompleted}/{stats.tasksTotal}</p>
+            <p className="text-3xl font-bold mt-2">${stats.honeymoonFunded.toLocaleString()}</p>
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">of ${stats.honeymoonGoal.toLocaleString()}</p>
           </div>
         </div>
 
@@ -68,32 +128,6 @@ export default function Dashboard() {
         </div>
 
         {/* Recent Activity */}
-        <div className="mt-12 bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
-          <h2 className="text-2xl font-bold mb-6">Recent Activity</h2>
-          <div className="space-y-4">
-            <div className="flex items-center gap-4 py-3 border-b dark:border-slate-700">
-              <div className="text-2xl">✅</div>
-              <div>
-                <p className="font-semibold">Guest RSVP'd</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">2 hours ago</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4 py-3 border-b dark:border-slate-700">
-              <div className="text-2xl">💰</div>
-              <div>
-                <p className="font-semibold">$500 donation received</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">4 hours ago</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4 py-3">
-              <div className="text-2xl">📝</div>
-              <div>
-                <p className="font-semibold">Budget updated</p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">6 hours ago</p>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     </main>
   );
