@@ -1,0 +1,23 @@
+{
+  "name": "@repo/payments",
+  "version": "0.0.1",
+  "description": "Stripe and Mercado Pago payment integration helpers",
+  "private": true,
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "mercadopago": "^2.1.4",
+    "stripe": "^14.13.0"
+  },
+  "devDependencies": {
+    "@repo/typescript-config": "workspace:*",
+    "typescript": "^5.3.3"
+  }
+}
