@@ -78,9 +78,12 @@ export default function Dashboard() {
   return (
     <main className="min-h-screen bg-gray-50 dark:bg-slate-950">
       {/* Header */}
-      <header className="bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800">
+      <header className="bg-gray-900 border-b border-gray-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
-          <h1 className="text-3xl font-bold">💍 The Wedding Admin Dashboard</h1>
+          <h1 className="text-3xl font-bold">
+            <span className="text-pink-500">💍 The Wedding</span>{' '}
+            <span className="text-white">Bride and Groom's Dashboard</span>
+          </h1>
           <button className="px-4 py-2 bg-red-600 text-white rounded-lg hover:bg-red-700">
             Logout
           </button>
@@ -90,25 +93,25 @@ export default function Dashboard() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Stats Grid */}
         <div className="grid md:grid-cols-4 gap-6 mb-12">
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
-            <h3 className="text-gray-600 dark:text-gray-400 text-sm font-semibold">Total Cost</h3>
+          <div className="bg-pink-600 text-white p-6 rounded-lg shadow">
+            <h3 className="text-white/80 text-sm font-semibold">Total Cost</h3>
             <p className="text-3xl font-bold mt-2">${stats.totalEstimatedCost.toLocaleString()}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">Budget estimated</p>
+            <p className="text-xs text-white/80 mt-1">Budget estimated</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
-            <h3 className="text-gray-600 dark:text-gray-400 text-sm font-semibold">Number of People</h3>
+          <div className="bg-pink-600 text-white p-6 rounded-lg shadow">
+            <h3 className="text-white/80 text-sm font-semibold">Number of People</h3>
             <p className="text-3xl font-bold mt-2">{stats.totalPeople}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">{stats.totalGuests} guests + {stats.totalPlusOnes} plus ones</p>
+            <p className="text-xs text-white/80 mt-1">{stats.totalGuests} guests + {stats.totalPlusOnes} plus ones</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
-            <h3 className="text-gray-600 dark:text-gray-400 text-sm font-semibold">RSVP Confirmed</h3>
+          <div className="bg-pink-600 text-white p-6 rounded-lg shadow">
+            <h3 className="text-white/80 text-sm font-semibold">RSVP Confirmed</h3>
             <p className="text-3xl font-bold mt-2">{stats.rsvpConfirmed}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">of {stats.totalGuests}</p>
+            <p className="text-xs text-white/80 mt-1">of {stats.totalGuests}</p>
           </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
-            <h3 className="text-gray-600 dark:text-gray-400 text-sm font-semibold">Honeymoon Fund</h3>
+          <div className="bg-pink-600 text-white p-6 rounded-lg shadow">
+            <h3 className="text-white/80 text-sm font-semibold">Honeymoon Fund</h3>
             <p className="text-3xl font-bold mt-2">${stats.honeymoonFunded.toLocaleString()}</p>
-            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">of ${stats.honeymoonGoal.toLocaleString()}</p>
+            <p className="text-xs text-white/80 mt-1">of ${stats.honeymoonGoal.toLocaleString()}</p>
           </div>
         </div>
 

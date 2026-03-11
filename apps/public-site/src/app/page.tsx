@@ -1,17 +1,30 @@
 import Link from "next/link";
 
 export default function Home() {
+  const adminDashboardUrl =
+    process.env.NEXT_PUBLIC_ADMIN_DASHBOARD_URL ?? "http://localhost:3001";
+
   return (
     <main className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 dark:from-slate-950 dark:to-slate-900">
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
           <div className="font-bold text-2xl text-pink-600">💍 The Wedding</div>
-          <div className="flex gap-6">
+          <div className="flex items-center gap-6">
             <Link href="/" className="font-medium hover:text-pink-600">Home</Link>
             <Link href="/our-story" className="font-medium hover:text-pink-600">Our Story</Link>
             <Link href="/details" className="font-medium hover:text-pink-600">Details</Link>
             <Link href="/gallery" className="font-medium hover:text-pink-600">Gallery</Link>
+            <Link
+              href={adminDashboardUrl}
+              className="inline-flex items-center gap-2 rounded-full bg-gray-900 text-white px-4 py-2 text-sm font-semibold hover:bg-gray-800 transition"
+              title="Bride and Groom only"
+            >
+              Admin Login
+              <span className="rounded-full bg-white/20 px-2 py-0.5 text-xs font-semibold">
+                Bride & Groom
+              </span>
+            </Link>
           </div>
         </div>
       </nav>
