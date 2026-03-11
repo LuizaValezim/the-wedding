@@ -126,8 +126,6 @@ export default function Dashboard() {
             </a>
           ))}
         </div>
-
-        {/* Recent Activity */}
       </div>
     </main>
   );

@@ -19,11 +19,12 @@ export default function Home() {
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <div className="text-center space-y-8">
-          <h1 className="text-6xl md:text-7xl font-bold text-gray-900 dark:text-white">
+          <h1 className="text-6xl md:text-7xl font-bold text-pink-500">
             We&apos;re Getting Married!
           </h1>
-          <p className="text-3xl italic text-pink-600 dark:text-pink-400 font-semibold">
-            It&apos;s not going to be a wedding, it&apos;s going to be <span className="font-bold">The Wedding</span>
+          <p className="text-3xl italic text-white font-semibold">
+            It&apos;s not going to be a wedding, it&apos;s going to be{" "}
+            <span className="font-bold text-pink-500">The Wedding</span>
           </p>
           <p className="text-2xl text-gray-600 dark:text-gray-300">
             Join us for the celebration of our love
