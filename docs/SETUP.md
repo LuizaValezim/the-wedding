@@ -15,8 +15,8 @@ Complete setup instructions for the wedding platform.
 ## 2. Clone Repository
 
 ```bash
-git clone https://github.com/yourusername/wedding-website.git
-cd wedding-website
+git clone https://github.com/yourusername/the-wedding.git
+cd the-wedding
 ```
 
 ## 3. Install Dependencies
@@ -283,8 +283,8 @@ console.log('Token:', token);
 # Initialize git if not done
 git init
 git add .
-git commit -m "Initial commit: wedding platform"
-git remote add origin https://github.com/yourusername/wedding-website.git
+git commit -m "Initial commit: The Wedding platform"
+git remote add origin https://github.com/yourusername/the-wedding.git
 git push -u origin main
 ```
 

@@ -1,7 +1,7 @@
 {
-  "name": "wedding-website",
+  "name": "the-wedding",
   "version": "1.0.0",
-  "description": "Production-grade full-stack wedding platform with honeymoon contribution system",
+  "description": "The Wedding - Production-grade full-stack platform with honeymoon contribution system",
   "private": true,
   "scripts": {
     "dev": "turbo run dev --parallel",

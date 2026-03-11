@@ -1,6 +1,8 @@
-# Quick Start Guide
+# Quick Start Guide - The Wedding
 
-Fast reference for getting the wedding platform running.
+> *It's not going to be a wedding, it's going to be **The Wedding***
+
+Fast reference for getting The Wedding platform running.
 
 ## 📥 Installation (5 minutes)
 
@@ -13,7 +15,7 @@ npm install -g pnpm
 
 # 3. Clone repo
 git clone <repo-url>
-cd wedding-website
+cd the-wedding
 
 # 4. Install dependencies
 pnpm install

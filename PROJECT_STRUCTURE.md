@@ -3,7 +3,7 @@
 ## Generated Directory Tree
 
 ```
-wedding-website/
+the-wedding/
 │
 ├── 📄 ROOT CONFIGURATION FILES
 ├── .env.example                 # Environment variables template (25+ vars)

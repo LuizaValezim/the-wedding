@@ -1,6 +1,6 @@
-# Database Schema
+# The Wedding - Database Schema
 
-Complete documentation of the wedding platform database schema.
+Complete documentation of The Wedding database schema.
 
 ## Table Relationships
 

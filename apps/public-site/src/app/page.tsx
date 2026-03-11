@@ -6,7 +6,7 @@ export default function Home() {
       {/* Navigation */}
       <nav className="sticky top-0 z-50 bg-white/80 dark:bg-slate-900/80 backdrop-blur-sm border-b border-gray-200 dark:border-slate-800">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
-          <div className="font-bold text-2xl text-pink-600">💍 Wedding</div>
+          <div className="font-bold text-2xl text-pink-600">💍 The Wedding</div>
           <div className="flex gap-6">
             <Link href="/" className="font-medium hover:text-pink-600">Home</Link>
             <Link href="/our-story" className="font-medium hover:text-pink-600">Our Story</Link>
@@ -22,6 +22,9 @@ export default function Home() {
           <h1 className="text-6xl md:text-7xl font-bold text-gray-900 dark:text-white">
             We&apos;re Getting Married!
           </h1>
+          <p className="text-3xl italic text-pink-600 dark:text-pink-400 font-semibold">
+            It&apos;s not going to be a wedding, it&apos;s going to be <span className="font-bold">The Wedding</span>
+          </p>
           <p className="text-2xl text-gray-600 dark:text-gray-300">
             Join us for the celebration of our love
           </p>

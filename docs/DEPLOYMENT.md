@@ -1,4 +1,4 @@
-# Deployment Guide
+# The Wedding - Deployment Guide
 
 Production deployment checklist and instructions for Vercel.
 
@@ -20,7 +20,7 @@ Production deployment checklist and instructions for Vercel.
 
 1. Go to https://vercel.com/signup
 2. Sign in with GitHub
-3. Import the wedding-website repository
+3. Import the the-wedding repository
 
 ### 2. Project Configuration
 
@@ -327,4 +327,4 @@ After the wedding:
 
 **Deployment Complete!** 🎉
 
-The wedding platform is now live and ready for guests to RSVP and contribute to your honeymoon fund.
+The Wedding platform is now live and ready for guests to RSVP and contribute to the honeymoon fund.

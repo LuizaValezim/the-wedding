@@ -1,4 +1,4 @@
-// Shared types for the wedding platform
+// Shared types for The Wedding platform
 
 export type User = {
   id: string;

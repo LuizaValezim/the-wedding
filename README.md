@@ -1,4 +1,6 @@
-# Wedding Website Platform
+# The Wedding
+
+> *It's not going to be a wedding, it's going to be **The Wedding***
 
 A production-grade full-stack wedding management platform combining a public guest-facing website with a comprehensive admin dashboard for wedding planning and honeymoon fund contributions.
 
@@ -12,7 +14,7 @@ This monorepo contains two main applications:
 ## 📋 Project Structure
 
 ```
-wedding-website/
+the-wedding/
 ├── apps/
 │   ├── public-site/          # Guest website (Next.js 14)
 │   └── admin-dashboard/      # Admin dashboard (Next.js 14)
@@ -68,8 +70,8 @@ wedding-website/
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/wedding-website.git
-cd wedding-website
+git clone https://github.com/yourusername/the-wedding.git
+cd the-wedding
 ```
 
 2. Install dependencies:

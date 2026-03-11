@@ -24,6 +24,8 @@ export default function BudgetPage() {
     description: '', 
     estimated: '' 
   });
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingItem, setEditingItem] = useState<BudgetItem | null>(null);
 
   const totalEstimated = items.reduce((sum, item) => sum + item.estimated, 0);
   const totalActual = items.reduce((sum, item) => sum + item.actual, 0);
@@ -42,6 +44,28 @@ export default function BudgetPage() {
       ]);
       setNewItem({ category: '', description: '', estimated: '' });
     }
+  };
+
+  const startEditing = (item: BudgetItem) => {
+    setEditingId(item.id);
+    setEditingItem({ ...item });
+  };
+
+  const saveItem = () => {
+    if (editingItem) {
+      setItems(items.map((i) => (i.id === editingItem.id ? editingItem : i)));
+      setEditingId(null);
+      setEditingItem(null);
+    }
+  };
+
+  const cancelEditing = () => {
+    setEditingId(null);
+    setEditingItem(null);
+  };
+
+  const deleteItem = (id: string) => {
+    setItems(items.filter((i) => i.id !== id));
   };
 
   return (
@@ -118,12 +142,70 @@ export default function BudgetPage() {
                 <th className="px-6 py-3 text-right font-semibold">Actual</th>
                 <th className="px-6 py-3 text-right font-semibold">Difference</th>
                 <th className="px-6 py-3 text-left font-semibold">Status</th>
+                <th className="px-6 py-3 text-left font-semibold">Actions</th>
               </tr>
             </thead>
             <tbody>
               {items.map((item) => {
                 const diff = item.estimated - item.actual;
-                return (
+                return editingId === item.id && editingItem ? (
+                  <tr key={item.id} className="border-t dark:border-slate-700 bg-blue-50 dark:bg-slate-700">
+                    <td className="px-6 py-4">
+                      <input
+                        type="text"
+                        value={editingItem.category}
+                        onChange={(e) => setEditingItem({ ...editingItem, category: e.target.value })}
+                        className="px-3 py-1 border rounded dark:bg-slate-600 w-full"
+                      />
+                    </td>
+                    <td className="px-6 py-4">
+                      <input
+                        type="text"
+                        value={editingItem.description}
+                        onChange={(e) => setEditingItem({ ...editingItem, description: e.target.value })}
+                        className="px-3 py-1 border rounded dark:bg-slate-600 w-full"
+                      />
+                    </td>
+                    <td className="px-6 py-4">
+                      <input
+                        type="number"
+                        value={editingItem.estimated}
+                        onChange={(e) => setEditingItem({ ...editingItem, estimated: parseFloat(e.target.value) })}
+                        className="px-3 py-1 border rounded dark:bg-slate-600 w-full text-right"
+                      />
+                    </td>
+                    <td className="px-6 py-4">
+                      <input
+                        type="number"
+                        value={editingItem.actual}
+                        onChange={(e) => setEditingItem({ ...editingItem, actual: parseFloat(e.target.value) })}
+                        className="px-3 py-1 border rounded dark:bg-slate-600 w-full text-right"
+                      />
+                    </td>
+                    <td className="px-6 py-4 text-right font-semibold">
+                      ${(editingItem.estimated - editingItem.actual).toLocaleString()}
+                    </td>
+                    <td className="px-6 py-4">
+                      <span className="px-3 py-1 rounded-full text-sm font-semibold bg-gray-200 dark:bg-slate-600">
+                        Editing...
+                      </span>
+                    </td>
+                    <td className="px-6 py-4 space-x-2">
+                      <button
+                        onClick={saveItem}
+                        className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700 text-sm"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={cancelEditing}
+                        className="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700 text-sm"
+                      >
+                        Cancel
+                      </button>
+                    </td>
+                  </tr>
+                ) : (
                   <tr key={item.id} className="border-t dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700">
                     <td className="px-6 py-4 font-semibold">{item.category}</td>
                     <td className="px-6 py-4">{item.description}</td>
@@ -140,6 +222,20 @@ export default function BudgetPage() {
                       }`}>
                         {item.actual === 0 ? 'Not Started' : diff >= 0 ? 'On Budget' : 'Over Budget'}
                       </span>
+                    </td>
+                    <td className="px-6 py-4 space-x-2">
+                      <button
+                        onClick={() => startEditing(item)}
+                        className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => deleteItem(item.id)}
+                        className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
+                      >
+                        Delete
+                      </button>
                     </td>
                   </tr>
                 );

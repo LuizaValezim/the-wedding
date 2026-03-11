@@ -41,6 +41,7 @@ export default function GuestsPage() {
 
   const [newGuest, setNewGuest] = useState({ name: '', email: '' });
   const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingGuest, setEditingGuest] = useState<Guest | null>(null);
 
   const addGuest = () => {
     if (newGuest.name && newGuest.email) {
@@ -57,6 +58,24 @@ export default function GuestsPage() {
       ]);
       setNewGuest({ name: '', email: '' });
     }
+  };
+
+  const startEditing = (guest: Guest) => {
+    setEditingId(guest.id);
+    setEditingGuest({ ...guest });
+  };
+
+  const saveGuest = () => {
+    if (editingGuest) {
+      setGuests(guests.map((g) => (g.id === editingGuest.id ? editingGuest : g)));
+      setEditingId(null);
+      setEditingGuest(null);
+    }
+  };
+
+  const cancelEditing = () => {
+    setEditingId(null);
+    setEditingGuest(null);
   };
 
   const deleteGuest = (id: string) => {
@@ -118,30 +137,97 @@ export default function GuestsPage() {
             </thead>
             <tbody>
               {guests.map((guest) => (
-                <tr key={guest.id} className="border-t dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700">
-                  <td className="px-6 py-4">{guest.name}</td>
-                  <td className="px-6 py-4">{guest.email}</td>
-                  <td className="px-6 py-4">
-                    <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                      guest.rsvpStatus === 'confirmed' ? 'bg-green-100 text-green-800' :
-                      guest.rsvpStatus === 'declined' ? 'bg-red-100 text-red-800' :
-                      'bg-yellow-100 text-yellow-800'
-                    }`}>
-                      {guest.rsvpStatus}
-                    </span>
-                  </td>
-                  <td className="px-6 py-4">{guest.plusOnes}</td>
-                  <td className="px-6 py-4">{guest.dietary}</td>
-                  <td className="px-6 py-4 space-x-2">
-                    <button className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">Edit</button>
-                    <button
-                      onClick={() => deleteGuest(guest.id)}
-                      className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
-                    >
-                      Delete
-                    </button>
-                  </td>
-                </tr>
+                editingId === guest.id && editingGuest ? (
+                  <tr key={guest.id} className="border-t dark:border-slate-700 bg-blue-50 dark:bg-slate-700">
+                    <td className="px-6 py-4">
+                      <input
+                        type="text"
+                        value={editingGuest.name}
+                        onChange={(e) => setEditingGuest({ ...editingGuest, name: e.target.value })}
+                        className="px-3 py-1 border rounded dark:bg-slate-600"
+                      />
+                    </td>
+                    <td className="px-6 py-4">
+                      <input
+                        type="email"
+                        value={editingGuest.email}
+                        onChange={(e) => setEditingGuest({ ...editingGuest, email: e.target.value })}
+                        className="px-3 py-1 border rounded dark:bg-slate-600"
+                      />
+                    </td>
+                    <td className="px-6 py-4">
+                      <select
+                        value={editingGuest.rsvpStatus}
+                        onChange={(e) => setEditingGuest({ ...editingGuest, rsvpStatus: e.target.value as any })}
+                        className="px-3 py-1 border rounded dark:bg-slate-600"
+                      >
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="declined">Declined</option>
+                      </select>
+                    </td>
+                    <td className="px-6 py-4">
+                      <input
+                        type="number"
+                        value={editingGuest.plusOnes}
+                        onChange={(e) => setEditingGuest({ ...editingGuest, plusOnes: parseInt(e.target.value) })}
+                        className="w-16 px-3 py-1 border rounded dark:bg-slate-600"
+                      />
+                    </td>
+                    <td className="px-6 py-4">
+                      <input
+                        type="text"
+                        value={editingGuest.dietary}
+                        onChange={(e) => setEditingGuest({ ...editingGuest, dietary: e.target.value })}
+                        className="px-3 py-1 border rounded dark:bg-slate-600"
+                      />
+                    </td>
+                    <td className="px-6 py-4 space-x-2">
+                      <button
+                        onClick={saveGuest}
+                        className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
+                      >
+                        Save
+                      </button>
+                      <button
+                        onClick={cancelEditing}
+                        className="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700"
+                      >
+                        Cancel
+                      </button>
+                    </td>
+                  </tr>
+                ) : (
+                  <tr key={guest.id} className="border-t dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700">
+                    <td className="px-6 py-4">{guest.name}</td>
+                    <td className="px-6 py-4">{guest.email}</td>
+                    <td className="px-6 py-4">
+                      <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                        guest.rsvpStatus === 'confirmed' ? 'bg-green-100 text-green-800' :
+                        guest.rsvpStatus === 'declined' ? 'bg-red-100 text-red-800' :
+                        'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {guest.rsvpStatus}
+                      </span>
+                    </td>
+                    <td className="px-6 py-4">{guest.plusOnes}</td>
+                    <td className="px-6 py-4">{guest.dietary}</td>
+                    <td className="px-6 py-4 space-x-2">
+                      <button
+                        onClick={() => startEditing(guest)}
+                        className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => deleteGuest(guest.id)}
+                        className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
+                      >
+                        Delete
+                      </button>
+                    </td>
+                  </tr>
+                )
               ))}
             </tbody>
           </table>

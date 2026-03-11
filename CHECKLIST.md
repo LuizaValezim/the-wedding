@@ -1,6 +1,6 @@
 # Implementation Checklist
 
-Complete checklist for implementing the wedding platform.
+Complete checklist for implementing The Wedding platform.
 
 ## ✅ Phase 1: Project Scaffolding (COMPLETE)
 

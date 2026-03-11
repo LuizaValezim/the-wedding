@@ -56,6 +56,8 @@ export default function TasksPage() {
   ]);
 
   const [newTask, setNewTask] = useState({ title: '', dueDate: '', assignedTo: 'both', priority: 'medium' });
+  const [editingId, setEditingId] = useState<string | null>(null);
+  const [editingTask, setEditingTask] = useState<Task | null>(null);
 
   const addTask = () => {
     if (newTask.title && newTask.dueDate) {
@@ -72,6 +74,28 @@ export default function TasksPage() {
       ]);
       setNewTask({ title: '', dueDate: '', assignedTo: 'both', priority: 'medium' });
     }
+  };
+
+  const startEditing = (task: Task) => {
+    setEditingId(task.id);
+    setEditingTask({ ...task });
+  };
+
+  const saveTask = () => {
+    if (editingTask) {
+      setTasks(tasks.map((t) => (t.id === editingTask.id ? editingTask : t)));
+      setEditingId(null);
+      setEditingTask(null);
+    }
+  };
+
+  const cancelEditing = () => {
+    setEditingId(null);
+    setEditingTask(null);
+  };
+
+  const deleteTask = (id: string) => {
+    setTasks(tasks.filter((t) => t.id !== id));
   };
 
   const toggleTask = (id: string) => {
@@ -155,37 +179,104 @@ export default function TasksPage() {
             const priorityOrder = { high: 0, medium: 1, low: 2 };
             return priorityOrder[a.priority] - priorityOrder[b.priority];
           }).map((task) => (
-            <div
-              key={task.id}
-              className={`bg-white dark:bg-slate-800 p-6 rounded-lg shadow flex items-center gap-4 ${
-                task.completed ? 'opacity-70' : ''
-              }`}
-            >
-              <input
-                type="checkbox"
-                checked={task.completed}
-                onChange={() => toggleTask(task.id)}
-                className="w-6 h-6"
-              />
-              <div className="flex-1">
-                <p className={`text-lg font-semibold ${task.completed ? 'line-through text-gray-500' : ''}`}>
-                  {task.title}
-                </p>
-                <p className="text-sm text-gray-600 dark:text-gray-400">
-                  Due: {new Date(task.dueDate).toLocaleDateString()}
-                </p>
+            editingId === task.id && editingTask ? (
+              <div key={task.id} className="bg-blue-50 dark:bg-slate-700 p-6 rounded-lg shadow border-2 border-blue-400">
+                <h3 className="text-lg font-semibold mb-4">Edit Task</h3>
+                <div className="grid md:grid-cols-2 gap-4 mb-4">
+                  <input
+                    type="text"
+                    value={editingTask.title}
+                    onChange={(e) => setEditingTask({ ...editingTask, title: e.target.value })}
+                    placeholder="Task title"
+                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-slate-600"
+                  />
+                  <input
+                    type="date"
+                    value={editingTask.dueDate}
+                    onChange={(e) => setEditingTask({ ...editingTask, dueDate: e.target.value })}
+                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-slate-600"
+                  />
+                  <select
+                    value={editingTask.priority}
+                    onChange={(e) => setEditingTask({ ...editingTask, priority: e.target.value as any })}
+                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-slate-600"
+                  >
+                    <option value="low">Low Priority</option>
+                    <option value="medium">Medium Priority</option>
+                    <option value="high">High Priority</option>
+                  </select>
+                  <select
+                    value={editingTask.assignedTo}
+                    onChange={(e) => setEditingTask({ ...editingTask, assignedTo: e.target.value as any })}
+                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-slate-600"
+                  >
+                    <option value="bride">Bride</option>
+                    <option value="groom">Groom</option>
+                    <option value="both">Both</option>
+                  </select>
+                </div>
+                <div className="flex gap-2">
+                  <button
+                    onClick={saveTask}
+                    className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={cancelEditing}
+                    className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
-              <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                task.priority === 'high' ? 'bg-red-100 text-red-800' :
-                task.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                'bg-green-100 text-green-800'
-              }`}>
-                {task.priority}
-              </span>
-              <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
-                {task.assignedTo === 'both' ? '👰🤵' : task.assignedTo === 'bride' ? '👰' : '🤵'}
-              </span>
-            </div>
+            ) : (
+              <div
+                key={task.id}
+                className={`bg-white dark:bg-slate-800 p-6 rounded-lg shadow flex items-center gap-4 ${
+                  task.completed ? 'opacity-70' : ''
+                }`}
+              >
+                <input
+                  type="checkbox"
+                  checked={task.completed}
+                  onChange={() => toggleTask(task.id)}
+                  className="w-6 h-6"
+                />
+                <div className="flex-1">
+                  <p className={`text-lg font-semibold ${task.completed ? 'line-through text-gray-500' : ''}`}>
+                    {task.title}
+                  </p>
+                  <p className="text-sm text-gray-600 dark:text-gray-400">
+                    Due: {new Date(task.dueDate).toLocaleDateString()}
+                  </p>
+                </div>
+                <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
+                  task.priority === 'high' ? 'bg-red-100 text-red-800' :
+                  task.priority === 'medium' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-green-100 text-green-800'
+                }`}>
+                  {task.priority}
+                </span>
+                <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
+                  {task.assignedTo === 'both' ? '👰🤵' : task.assignedTo === 'bride' ? '👰' : '🤵'}
+                </span>
+                <div className="flex gap-2">
+                  <button
+                    onClick={() => startEditing(task)}
+                    className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700 text-sm"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    onClick={() => deleteTask(task.id)}
+                    className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700 text-sm"
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            )
           ))}
         </div>
       </div>

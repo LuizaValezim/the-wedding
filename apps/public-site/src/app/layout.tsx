@@ -6,8 +6,8 @@ import "./styles/globals.css";
 const dosis = Dosis({ subsets: ["latin"], variable: "--font-sans" });
 
 export const metadata: Metadata = {
-  title: "Wedding Website",
-  description: "Our wedding website and honeymoon fund",
+  title: "The Wedding",
+  description: "The Wedding - Our wedding website and honeymoon fund",
 };
 
 export default function RootLayout({
