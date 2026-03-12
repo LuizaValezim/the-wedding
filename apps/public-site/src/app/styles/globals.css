@@ -3,57 +3,134 @@
 @tailwind utilities;
 
 :root {
-  --background: 0 0% 100%;
-  --foreground: 0 0% 3.6%;
-  --primary: 0 84.2% 60.2%;
-  --primary-foreground: 0 85.9% 97.3%;
-  --secondary: 217.2 91.2% 59.8%;
-  --secondary-foreground: 210 40% 96%;
+  /* Wedding Color Palette */
+  --wedding-ivory: #FAF8F4;
+  --wedding-champagne: #F1ECE6;
+  --wedding-sage: #8FAF9A;
+  --wedding-rose: #D8A7A1;
+  --wedding-charcoal: #2F2F2F;
+  --wedding-grey: #6B6B6B;
+  
+  /* CSS Variables for Tailwind */
+  --background: 35 25% 98%;
+  --foreground: 0 0% 18.6%;
+  --primary: 145 14% 56%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 10 26% 78%;
+  --secondary-foreground: 0 0% 18.6%;
   --destructive: 0 84.2% 60.2%;
   --destructive-foreground: 0 0% 100%;
-  --muted: 220 14.3% 95.9%;
-  --muted-foreground: 220 8.9% 46.1%;
-  --accent: 217.2 91.2% 59.8%;
-  --accent-foreground: 210 40% 96%;
+  --muted: 35 20% 92%;
+  --muted-foreground: 0 0% 42%;
+  --accent: 145 14% 56%;
+  --accent-foreground: 0 0% 100%;
   --popover: 0 0% 100%;
-  --popover-foreground: 0 0% 3.6%;
+  --popover-foreground: 0 0% 18.6%;
   --card: 0 0% 100%;
-  --card-foreground: 0 0% 3.6%;
-  --border: 220 13% 91%;
-  --input: 220 13% 91%;
-  --ring: 0 84.2% 60.2%;
-  --radius: 0.5rem;
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif;
+  --card-foreground: 0 0% 18.6%;
+  --border: 35 15% 90%;
+  --input: 35 15% 90%;
+  --ring: 145 14% 56%;
+  --radius: 0.75rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: 0 0% 3.6%;
-    --foreground: 0 0% 98%;
-    --primary: 0 84.2% 60.2%;
-    --primary-foreground: 0 85.7% 97.3%;
-    --secondary: 217.2 91.2% 59.8%;
-    --secondary-foreground: 210 10% 12%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 85.7% 97.3%;
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.3% 65.1%;
-    --accent: 217.2 91.2% 59.8%;
-    --accent-foreground: 210 10% 12%;
-    --popover: 0 0% 3.6%;
-    --popover-foreground: 0 0% 98%;
-    --card: 0 0% 3.6%;
-    --card-foreground: 0 0% 98%;
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 0 84.2% 60.2%;
+@layer base {
+  body {
+    @apply bg-[#FAF8F4] text-[#2F2F2F] font-sans;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-display font-semibold;
+  }
+  
+  h1 {
+    @apply text-5xl leading-tight;
+    letter-spacing: -0.02em;
+  }
+  
+  h2 {
+    @apply text-4xl leading-snug;
+    letter-spacing: -0.01em;
+  }
+  
+  h3 {
+    @apply text-3xl leading-snug;
+  }
+  
+  p {
+    @apply text-lg leading-relaxed text-[#6B6B6B];
+  }
+  
+  button, a {
+    @apply transition-all duration-200;
   }
 }
 
-* {
-  @apply border-border;
-}
-
-body {
-  @apply bg-background text-foreground;
+@layer components {
+  /* Container and section utilities */
+  .wedding-container {
+    @apply max-w-6xl mx-auto px-6 sm:px-8;
+  }
+  
+  .wedding-section {
+    @apply py-20 sm:py-24 lg:py-28;
+  }
+  
+  .wedding-section-compact {
+    @apply py-12 sm:py-16;
+  }
+  
+  /* Card styles */
+  .wedding-card {
+    @apply bg-white rounded-2xl shadow-sm border border-[#F1ECE6] p-8 hover:shadow-md transition-shadow;
+  }
+  
+  .wedding-card-lg {
+    @apply bg-white rounded-3xl shadow-sm border border-[#F1ECE6] p-8 sm:p-12;
+  }
+  
+  /* Button styles */
+  .wedding-button-primary {
+    @apply px-8 py-3 bg-[#8FAF9A] text-white font-medium rounded-xl hover:bg-[#7A9988] active:bg-[#6B8A79] transition-colors;
+  }
+  
+  .wedding-button-primary-lg {
+    @apply px-10 py-4 bg-[#8FAF9A] text-white font-medium rounded-xl hover:bg-[#7A9988] active:bg-[#6B8A79] transition-colors text-lg;
+  }
+  
+  .wedding-button-secondary {
+    @apply px-8 py-3 border-2 border-[#8FAF9A] text-[#8FAF9A] font-medium rounded-xl hover:bg-[#FAF8F4] active:bg-[#F1ECE6] transition-colors;
+  }
+  
+  .wedding-button-secondary-lg {
+    @apply px-10 py-4 border-2 border-[#8FAF9A] text-[#8FAF9A] font-medium rounded-xl hover:bg-[#FAF8F4] active:bg-[#F1ECE6] transition-colors text-lg;
+  }
+  
+  /* Navigation */
+  .wedding-nav-link {
+    @apply text-[#2F2F2F] font-medium hover:text-[#8FAF9A] pb-1 border-b-2 border-transparent hover:border-[#8FAF9A] transition-all;
+  }
+  
+  .wedding-nav-link-active {
+    @apply text-[#8FAF9A] border-b-2 border-[#8FAF9A];
+  }
+  
+  /* Typography utilities */
+  .text-primary {
+    @apply text-[#2F2F2F];
+  }
+  
+  .text-secondary {
+    @apply text-[#6B6B6B];
+  }
+  
+  /* Spacing scale */
+  .gap-card {
+    @apply gap-8;
+  }
+  
+  /* Subtle shadows */
+  .shadow-wedding {
+    @apply shadow-sm;
+  }
 }

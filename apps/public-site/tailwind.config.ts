@@ -13,8 +13,17 @@ const config: Config = {
     extend: {
       fontFamily: {
         sans: ["var(--font-sans)", ...defaultTheme.fontFamily.sans],
+        display: ["var(--font-display)", ...defaultTheme.fontFamily.serif],
       },
       colors: {
+        wedding: {
+          ivory: "#FAF8F4",
+          champagne: "#F1ECE6",
+          sage: "#8FAF9A",
+          rose: "#D8A7A1",
+          charcoal: "#2F2F2F",
+          grey: "#6B6B6B",
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

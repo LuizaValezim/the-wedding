@@ -2,23 +2,30 @@
 
 export default function VenuesPage() {
   return (
-    <main className="min-h-screen bg-gray-50 dark:bg-slate-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold">Venues</h1>
-          <a href="/" className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700">
-            Back to Dashboard
-          </a>
-        </div>
-        <div className="bg-white dark:bg-slate-800 p-8 rounded-lg shadow">
-          <p className="text-gray-600 dark:text-gray-400 text-lg">
-            Compare and manage potential wedding venues. Track capacity, pricing, and availability.
-          </p>
-          <button className="mt-6 px-6 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700">
-            Add Venue
-          </button>
+    <div className="min-h-screen p-8 bg-[#F8F6F1]">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="font-display text-5xl font-bold text-[#2F2F2F] mb-2">Venue Management</h1>
+        <p className="text-[#6B6B6B] mb-8">Compare and manage potential wedding venues</p>
+
+        <div className="space-y-6">
+      <div className="wedding-card">
+        <h2 className="font-display text-2xl font-semibold text-[#2F2F2F] mb-4">Venue Management</h2>
+        <p className="text-[#6B6B6B] mb-6 leading-relaxed">
+          Compare and manage potential wedding venues. Track capacity, pricing, and availability.
+        </p>
+        <button className="wedding-button-primary">
+          + Add Venue
+        </button>
+      </div>
+
+      {/* Empty State */}
+      <div className="wedding-card text-center py-12">
+        <div className="text-5xl mb-4">🏛️</div>
+        <h3 className="font-display text-2xl font-light text-[#2F2F2F] mb-2">No Venues Added Yet</h3>
+        <p className="text-[#6B6B6B]">Start adding venues to compare and track your options</p>
+      </div>
         </div>
       </div>
-    </main>
+    </div>
   );
 }

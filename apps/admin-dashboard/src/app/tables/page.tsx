@@ -42,26 +42,19 @@ export default function SeatingPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 dark:bg-slate-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold">Seating Arrangement</h1>
-          <a 
-            href="/" 
-            className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
-          >
-            Back to Dashboard
-          </a>
-        </div>
+    <div className="min-h-screen p-8 bg-[#F8F6F1]">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="font-display text-5xl font-bold text-[#2F2F2F] mb-2">Seating Chart</h1>
+        <p className="text-[#6B6B6B] mb-8">Manage table assignments</p>
 
         {/* Add Guest to Table */}
-        <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow mb-8">
-          <h2 className="text-2xl font-bold mb-4">Add Guest to Table</h2>
+        <div className="wedding-card p-6 rounded-lg shadow mb-8">
+          <h2 className="font-display text-2xl font-semibold text-[#2F2F2F] mb-4">Add Guest to Table</h2>
           <div className="flex gap-4">
             <select
               value={newTableGuest.tableId}
               onChange={(e) => setNewTableGuest({ ...newTableGuest, tableId: e.target.value })}
-              className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-slate-700"
+              className="flex-1 px-4 py-2 border border-[#F1ECE6] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8FAF9A] text-[#2F2F2F]"
             >
               {tables.map((t) => (
                 <option key={t.id} value={t.id}>
@@ -74,11 +67,11 @@ export default function SeatingPage() {
               placeholder="Guest name"
               value={newTableGuest.guestName}
               onChange={(e) => setNewTableGuest({ ...newTableGuest, guestName: e.target.value })}
-              className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-slate-700"
+              className="flex-1 px-4 py-2 border border-[#F1ECE6] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8FAF9A] text-[#2F2F2F]"
             />
             <button
               onClick={addGuestToTable}
-              className="px-6 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700"
+              className="px-6 py-2 bg-[#8FAF9A] text-white rounded-lg hover:bg-[#7A9988] font-display"
             >
               Add
             </button>
@@ -88,18 +81,18 @@ export default function SeatingPage() {
         {/* Tables Grid */}
         <div className="grid md:grid-cols-3 gap-6">
           {tables.map((table) => (
-            <div key={table.id} className="bg-white dark:bg-slate-800 rounded-lg shadow p-6">
+            <div key={table.id} className="wedding-card rounded-lg shadow p-6">
               <div className="flex justify-between items-center mb-4">
-                <h3 className="text-2xl font-bold">Table {table.tableNumber}</h3>
-                <span className="text-sm font-semibold text-gray-600 dark:text-gray-400">
+                <h3 className="font-display text-2xl font-semibold text-[#2F2F2F]">Table {table.tableNumber}</h3>
+                <span className="text-sm font-semibold text-[#6B6B6B]">
                   {table.guests.length}/{table.capacity}
                 </span>
               </div>
               
               {/* Capacity Bar */}
-              <div className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2 mb-4">
+              <div className="w-full bg-[#F1ECE6] rounded-full h-2 mb-4">
                 <div
-                  className="bg-pink-600 h-2 rounded-full transition-all"
+                  className="bg-[#8FAF9A] h-2 rounded-full transition-all"
                   style={{ width: `${(table.guests.length / table.capacity) * 100}%` }}
                 />
               </div>
@@ -107,7 +100,7 @@ export default function SeatingPage() {
               {/* Guest List */}
               <div className="space-y-2">
                 {table.guests.map((guest) => (
-                  <div key={guest} className="flex justify-between items-center bg-gray-100 dark:bg-slate-700 p-3 rounded">
+                  <div key={guest} className="wedding-card flex justify-between items-center p-3 rounded">
                     <span>{guest}</span>
                     <button
                       onClick={() => removeGuestFromTable(table.id, guest)}
@@ -125,6 +118,6 @@ export default function SeatingPage() {
           ))}
         </div>
       </div>
-    </main>
+    </div>
   );
 }

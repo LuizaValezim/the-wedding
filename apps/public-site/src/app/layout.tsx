@@ -1,9 +1,18 @@
 import type { Metadata } from "next";
-import { Dosis } from "next/font/google";
+import { Playfair_Display, Inter } from "next/font/google";
 
 import "./styles/globals.css";
 
-const dosis = Dosis({ subsets: ["latin"], variable: "--font-sans" });
+const playfairDisplay = Playfair_Display({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["400", "500", "600", "700"],
+});
+
+const inter = Inter({
+  subsets: ["latin"],
+  variable: "--font-sans",
+});
 
 export const metadata: Metadata = {
   title: "The Wedding",
@@ -17,7 +26,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${dosis.variable} antialiased`}>
+      <body className={`${playfairDisplay.variable} ${inter.variable} antialiased`}>
         {children}
       </body>
     </html>

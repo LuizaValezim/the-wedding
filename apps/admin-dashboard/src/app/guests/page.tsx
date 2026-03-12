@@ -211,36 +211,31 @@ export default function GuestsPage() {
   };
 
   return (
-    <main className="min-h-screen bg-gray-50 dark:bg-slate-950">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="flex justify-between items-center mb-8">
-          <h1 className="text-4xl font-bold">Manage Guests</h1>
-          <a 
-            href="/" 
-            className="px-4 py-2 bg-gray-600 text-white rounded-lg hover:bg-gray-700"
-          >
-            Back to Dashboard
-          </a>
-        </div>
+    <div className="min-h-screen p-8 bg-[#F8F6F1]">
+      <div className="max-w-6xl mx-auto">
+        <h1 className="font-display text-5xl font-bold text-[#2F2F2F] mb-2">Guest Management</h1>
+        <p className="text-[#6B6B6B] mb-8">Manage RSVPs and seating arrangements</p>
 
-        {/* Tabs */}
-        <div className="flex gap-4 mb-8 border-b border-gray-200 dark:border-slate-700">
+        <>
+      {/* Tabs */}
+      <div className="space-y-6">
+        <div className="flex gap-4 border-b border-[#F1ECE6]">
           <button
             onClick={() => setActiveTab('guests')}
-            className={`px-6 py-3 font-semibold text-lg border-b-2 ${
+            className={`px-6 py-4 font-semibold text-lg border-b-2 transition-colors ${
               activeTab === 'guests'
-                ? 'border-pink-600 text-pink-600'
-                : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900'
+                ? 'border-[#8FAF9A] text-[#8FAF9A]'
+                : 'border-transparent text-[#6B6B6B] hover:text-[#8FAF9A]'
             }`}
           >
             👥 Guest List
           </button>
           <button
             onClick={() => setActiveTab('seating')}
-            className={`px-6 py-3 font-semibold text-lg border-b-2 ${
+            className={`px-6 py-4 font-semibold text-lg border-b-2 transition-colors ${
               activeTab === 'seating'
-                ? 'border-pink-600 text-pink-600'
-                : 'border-transparent text-gray-600 dark:text-gray-400 hover:text-gray-900'
+                ? 'border-[#8FAF9A] text-[#8FAF9A]'
+                : 'border-transparent text-[#6B6B6B] hover:text-[#8FAF9A]'
             }`}
           >
             🪑 Seating Arrangement
@@ -250,289 +245,291 @@ export default function GuestsPage() {
         {/* Add Guest Form */}
         {activeTab === 'guests' && (
           <>
-        <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow mb-8">
-          <h2 className="text-2xl font-bold mb-4">Add New Guest</h2>
-          <div className="flex gap-4">
-            <input
-              type="text"
-              placeholder="Guest name"
-              value={newGuest.name}
-              onChange={(e) => setNewGuest({ ...newGuest, name: e.target.value })}
-              className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-slate-700"
-            />
-            <input
-              type="email"
-              placeholder="Email"
-              value={newGuest.email}
-              onChange={(e) => setNewGuest({ ...newGuest, email: e.target.value })}
-              className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-slate-700"
-            />
-            <button
-              onClick={addGuest}
-              className="px-6 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700"
-            >
-              Add Guest
-            </button>
-          </div>
-        </div>
+            <div className="wedding-card space-y-4">
+              <h3 className="font-display text-xl font-semibold text-[#2F2F2F]">Add New Guest</h3>
+              <div className="flex gap-4">
+                <input
+                  type="text"
+                  placeholder="Guest name"
+                  value={newGuest.name}
+                  onChange={(e) => setNewGuest({ ...newGuest, name: e.target.value })}
+                  className="flex-1 px-4 py-2 border border-[#F1ECE6] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8FAF9A] text-[#2F2F2F]"
+                />
+                <input
+                  type="email"
+                  placeholder="Email"
+                  value={newGuest.email}
+                  onChange={(e) => setNewGuest({ ...newGuest, email: e.target.value })}
+                  className="flex-1 px-4 py-2 border border-[#F1ECE6] rounded-lg focus:outline-none focus:ring-2 focus:ring-[#8FAF9A] text-[#2F2F2F]"
+                />
+                <button
+                  onClick={addGuest}
+                  className="wedding-button-primary"
+                >
+                  Add Guest
+                </button>
+              </div>
+            </div>
 
-        {/* Guests Table */}
-        <div className="bg-white dark:bg-slate-800 rounded-lg shadow overflow-hidden">
-          <table className="w-full">
-            <thead className="bg-gray-100 dark:bg-slate-700">
-              <tr>
-                <th className="px-6 py-3 text-left font-semibold">Name</th>
-                <th className="px-6 py-3 text-left font-semibold">Email</th>
-                <th className="px-6 py-3 text-left font-semibold">RSVP Status</th>
-                <th className="px-6 py-3 text-left font-semibold">Plus Ones</th>
-                <th className="px-6 py-3 text-left font-semibold">Dietary</th>
-                <th className="px-6 py-3 text-left font-semibold">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {guests.map((guest) => (
-                editingId === guest.id && editingGuest ? (
-                  <tr key={guest.id} className="border-t dark:border-slate-700 bg-blue-50 dark:bg-slate-700">
-                    <td className="px-6 py-4">
-                      <input
-                        type="text"
-                        value={editingGuest.name}
-                        onChange={(e) => setEditingGuest({ ...editingGuest, name: e.target.value })}
-                        className="px-3 py-1 border rounded dark:bg-slate-600"
-                      />
-                    </td>
-                    <td className="px-6 py-4">
-                      <input
-                        type="email"
-                        value={editingGuest.email}
-                        onChange={(e) => setEditingGuest({ ...editingGuest, email: e.target.value })}
-                        className="px-3 py-1 border rounded dark:bg-slate-600"
-                      />
-                    </td>
-                    <td className="px-6 py-4">
-                      <select
-                        value={editingGuest.rsvpStatus}
-                        onChange={(e) => setEditingGuest({ ...editingGuest, rsvpStatus: e.target.value as any })}
-                        className="px-3 py-1 border rounded dark:bg-slate-600"
-                      >
-                        <option value="pending">Pending</option>
-                        <option value="confirmed">Confirmed</option>
-                        <option value="declined">Declined</option>
-                      </select>
-                    </td>
-                    <td className="px-6 py-4">
-                      <input
-                        type="number"
-                        value={editingGuest.plusOnes}
-                        onChange={(e) => setEditingGuest({ ...editingGuest, plusOnes: parseInt(e.target.value) })}
-                        className="w-16 px-3 py-1 border rounded dark:bg-slate-600"
-                      />
-                    </td>
-                    <td className="px-6 py-4">
-                      <input
-                        type="text"
-                        value={editingGuest.dietary}
-                        onChange={(e) => setEditingGuest({ ...editingGuest, dietary: e.target.value })}
-                        className="px-3 py-1 border rounded dark:bg-slate-600"
-                      />
-                    </td>
-                    <td className="px-6 py-4 space-x-2">
-                      <button
-                        onClick={saveGuest}
-                        className="px-3 py-1 bg-green-600 text-white rounded hover:bg-green-700"
-                      >
-                        Save
-                      </button>
-                      <button
-                        onClick={cancelEditing}
-                        className="px-3 py-1 bg-gray-600 text-white rounded hover:bg-gray-700"
-                      >
-                        Cancel
-                      </button>
-                    </td>
+            {/* Guests Table */}
+            <div className="wedding-card overflow-hidden">
+              <table className="w-full text-sm">
+                <thead className="border-b border-[#F1ECE6] bg-[#FAF8F4]">
+                  <tr>
+                    <th className="px-6 py-4 text-left font-semibold text-[#2F2F2F]">Name</th>
+                    <th className="px-6 py-4 text-left font-semibold text-[#2F2F2F]">Email</th>
+                    <th className="px-6 py-4 text-left font-semibold text-[#2F2F2F]">RSVP Status</th>
+                    <th className="px-6 py-4 text-left font-semibold text-[#2F2F2F]">Plus Ones</th>
+                    <th className="px-6 py-4 text-left font-semibold text-[#2F2F2F]">Dietary</th>
+                    <th className="px-6 py-4 text-left font-semibold text-[#2F2F2F]">Actions</th>
                   </tr>
-                ) : (
-                  <tr key={guest.id} className="border-t dark:border-slate-700 hover:bg-gray-50 dark:hover:bg-slate-700">
-                    <td className="px-6 py-4">{guest.name}</td>
-                    <td className="px-6 py-4">{guest.email}</td>
-                    <td className="px-6 py-4">
-                      <span className={`px-3 py-1 rounded-full text-sm font-semibold ${
-                        guest.rsvpStatus === 'confirmed' ? 'bg-green-100 text-green-800' :
-                        guest.rsvpStatus === 'declined' ? 'bg-red-100 text-red-800' :
-                        'bg-yellow-100 text-yellow-800'
-                      }`}>
-                        {guest.rsvpStatus}
-                      </span>
-                    </td>
-                    <td className="px-6 py-4">{guest.plusOnes}</td>
-                    <td className="px-6 py-4">{guest.dietary}</td>
-                    <td className="px-6 py-4 space-x-2">
-                      <button
-                        onClick={() => startEditing(guest)}
-                        className="px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        onClick={() => deleteGuest(guest.id)}
-                        className="px-3 py-1 bg-red-600 text-white rounded hover:bg-red-700"
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                )
-              ))}
-            </tbody>
-          </table>
-        </div>
+                </thead>
+                <tbody>
+                  {guests.map((guest) => (
+                    editingId === guest.id && editingGuest ? (
+                      <tr key={guest.id} className="border-t border-[#F1ECE6] bg-[#F1ECE6] bg-opacity-20">
+                        <td className="px-6 py-4">
+                          <input
+                            type="text"
+                            value={editingGuest.name}
+                            onChange={(e) => setEditingGuest({ ...editingGuest, name: e.target.value })}
+                            className="px-3 py-1 border border-[#F1ECE6] rounded text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
+                          />
+                        </td>
+                        <td className="px-6 py-4">
+                          <input
+                            type="email"
+                            value={editingGuest.email}
+                            onChange={(e) => setEditingGuest({ ...editingGuest, email: e.target.value })}
+                            className="px-3 py-1 border border-[#F1ECE6] rounded text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
+                          />
+                        </td>
+                        <td className="px-6 py-4">
+                          <select
+                            value={editingGuest.rsvpStatus}
+                            onChange={(e) => setEditingGuest({ ...editingGuest, rsvpStatus: e.target.value as any })}
+                            className="px-3 py-1 border border-[#F1ECE6] rounded text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
+                          >
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="declined">Declined</option>
+                          </select>
+                        </td>
+                        <td className="px-6 py-4">
+                          <input
+                            type="number"
+                            value={editingGuest.plusOnes}
+                            onChange={(e) => setEditingGuest({ ...editingGuest, plusOnes: parseInt(e.target.value) })}
+                            className="w-16 px-3 py-1 border border-[#F1ECE6] rounded text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
+                          />
+                        </td>
+                        <td className="px-6 py-4">
+                          <input
+                            type="text"
+                            value={editingGuest.dietary}
+                            onChange={(e) => setEditingGuest({ ...editingGuest, dietary: e.target.value })}
+                            className="px-3 py-1 border border-[#F1ECE6] rounded text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
+                          />
+                        </td>
+                        <td className="px-6 py-4 space-x-2">
+                          <button
+                            onClick={saveGuest}
+                            className="px-3 py-1 bg-[#8FAF9A] text-white rounded text-sm font-medium hover:bg-[#7A9988]"
+                          >
+                            Save
+                          </button>
+                          <button
+                            onClick={cancelEditing}
+                            className="px-3 py-1 bg-[#6B6B6B] text-white rounded text-sm font-medium hover:bg-[#5A5A5A]"
+                          >
+                            Cancel
+                          </button>
+                        </td>
+                      </tr>
+                    ) : (
+                      <tr key={guest.id} className="border-t border-[#F1ECE6] hover:bg-[#FAF8F4]">
+                        <td className="px-6 py-4 text-[#2F2F2F]">{guest.name}</td>
+                        <td className="px-6 py-4 text-[#6B6B6B]">{guest.email}</td>
+                        <td className="px-6 py-4">
+                          <span className={`px-3 py-1 rounded-full text-xs font-semibold ${
+                            guest.rsvpStatus === 'confirmed' ? 'bg-green-50 text-green-700' :
+                            guest.rsvpStatus === 'declined' ? 'bg-red-50 text-red-700' :
+                            'bg-yellow-50 text-yellow-700'
+                          }`}>
+                            {guest.rsvpStatus}
+                          </span>
+                        </td>
+                        <td className="px-6 py-4 text-[#2F2F2F]">{guest.plusOnes}</td>
+                        <td className="px-6 py-4 text-[#2F2F2F]">{guest.dietary}</td>
+                        <td className="px-6 py-4 space-x-2">
+                          <button
+                            onClick={() => startEditing(guest)}
+                            className="px-3 py-1 bg-[#8FAF9A] text-white rounded text-sm font-medium hover:bg-[#7A9988]"
+                          >
+                            Edit
+                          </button>
+                          <button
+                            onClick={() => deleteGuest(guest.id)}
+                            className="px-3 py-1 bg-[#D8A7A1] text-white rounded text-sm font-medium hover:bg-[#C89691]"
+                          >
+                            Delete
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                  ))}
+                </tbody>
+              </table>
+            </div>
 
-        {/* Summary */}
-        <div className="grid md:grid-cols-3 gap-6 mt-8">
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
-            <p className="text-gray-600 dark:text-gray-400">Total Guests</p>
-            <p className="text-3xl font-bold">{guests.length}</p>
-          </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
-            <p className="text-gray-600 dark:text-gray-400">RSVP Confirmed</p>
-            <p className="text-3xl font-bold">{guests.filter((g) => g.rsvpStatus === 'confirmed').length}</p>
-          </div>
-          <div className="bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
-            <p className="text-gray-600 dark:text-gray-400">Plus Ones</p>
-            <p className="text-3xl font-bold">{guests.reduce((sum, g) => sum + g.plusOnes, 0)}</p>
-          </div>
-        </div>
+            {/* Summary */}
+            <div className="grid md:grid-cols-3 gap-6 mt-8">
+              <div className="stat-card">
+                <div className="stat-card-header">Total Guests</div>
+                <div className="stat-card-value">{guests.length}</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-card-header">RSVP Confirmed</div>
+                <div className="stat-card-value">{guests.filter((g) => g.rsvpStatus === 'confirmed').length}</div>
+              </div>
+              <div className="stat-card">
+                <div className="stat-card-header">Plus Ones</div>
+                <div className="stat-card-value">{guests.reduce((sum, g) => sum + g.plusOnes, 0)}</div>
+              </div>
+            </div>
           </>
         )}
 
         {/* Seating Tab */}
         {activeTab === 'seating' && (
           <>
-        {/* Add Table Button */}
-        <div className="mb-8 flex justify-end">
-          <button
-            onClick={addTable}
-            className="px-6 py-2 bg-pink-600 text-white rounded-lg hover:bg-pink-700"
-          >
-            + Add Table
-          </button>
-        </div>
-
-        {/* Tables Grid */}
-        <div className="grid md:grid-cols-3 gap-6">
-          {tables.map((table) => (
-            <div
-              key={table.id}
-              className="bg-white dark:bg-slate-800 rounded-lg shadow p-6 border-2 border-dashed border-gray-300 dark:border-slate-600"
-              onDragOver={handleDragOver}
-              onDrop={(e) => handleDropOnTable(e, table.id)}
-            >
-              <div className="flex justify-between items-center mb-4">
-                <h3 className="text-2xl font-bold">Table {table.tableNumber}</h3>
-                {editingTableId === table.id ? (
-                  <div className="flex gap-2 items-center">
-                    <input
-                      type="number"
-                      min="1"
-                      value={editingTableCapacity}
-                      onChange={(e) => setEditingTableCapacity(parseInt(e.target.value))}
-                      className="w-16 px-2 py-1 border rounded dark:bg-slate-700 text-center"
-                    />
-                    <button
-                      onClick={() => saveTableCapacity(table.id)}
-                      className="px-2 py-1 bg-green-600 text-white rounded text-sm"
-                    >
-                      ✓
-                    </button>
-                    <button
-                      onClick={cancelEditingTable}
-                      className="px-2 py-1 bg-gray-600 text-white rounded text-sm"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ) : (
-                  <div className="flex gap-2 items-center">
-                    <span className="text-sm font-semibold text-gray-600 dark:text-gray-400 cursor-pointer hover:text-pink-600" onClick={() => startEditingTableCapacity(table)}>
-                      {table.guests.length}/{table.capacity}
-                    </span>
-                    <button
-                      onClick={() => startEditingTableCapacity(table)}
-                      className="text-xs text-blue-600 hover:text-blue-700"
-                    >
-                      edit
-                    </button>
-                    <button
-                      onClick={() => removeTable(table.id)}
-                      className="text-xs text-red-600 hover:text-red-700"
-                    >
-                      remove
-                    </button>
-                  </div>
-                )}
-              </div>
-
-              {/* Capacity Bar */}
-              <div className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2 mb-4">
-                <div
-                  className="bg-pink-600 h-2 rounded-full transition-all"
-                  style={{ width: `${(table.guests.length / table.capacity) * 100}%` }}
-                />
-              </div>
-
-              {/* Guest List */}
-              <div className="space-y-2">
-                {table.guests.map((guest) => (
-                  <div
-                    key={guest}
-                    draggable
-                    onDragStart={(e) => handleDragStart(e, guest, table.id)}
-                    className="flex justify-between items-center bg-pink-50 dark:bg-slate-700 p-3 rounded cursor-move hover:bg-pink-100 dark:hover:bg-slate-600 transition-colors"
-                  >
-                    <span className="font-medium">{guest}</span>
-                    <button
-                      onClick={() => removeGuestFromTable(table.id, guest)}
-                      className="text-red-600 hover:text-red-700 font-semibold text-sm"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ))}
-                {table.guests.length === 0 && (
-                  <p className="text-gray-500 dark:text-gray-400 italic text-center py-4">
-                    Drag guests here
-                  </p>
-                )}
-              </div>
+            {/* Add Table Button */}
+            <div className="mb-8 flex justify-end">
+              <button
+                onClick={addTable}
+                className="wedding-button-primary"
+              >
+                + Add Table
+              </button>
             </div>
-          ))}
-        </div>
 
-        {/* Unassigned Guests */}
-        <div className="mt-8 bg-white dark:bg-slate-800 p-6 rounded-lg shadow">
-          <h2 className="text-2xl font-bold mb-4">Unassigned Guests</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-            {guests
-              .map((g) => g.name)
-              .filter((name) => !tables.some((t) => t.guests.includes(name)))
-              .map((guestName) => (
+            {/* Tables Grid */}
+            <div className="grid md:grid-cols-3 gap-6 mb-8">
+              {tables.map((table) => (
                 <div
-                  key={guestName}
-                  draggable
-                  onDragStart={(e) => handleDragStart(e, guestName)}
-                  className="bg-gray-100 dark:bg-slate-700 p-3 rounded cursor-move hover:bg-gray-200 dark:hover:bg-slate-600 transition-colors text-center font-medium"
+                  key={table.id}
+                  className="wedding-card border-2 border-dashed border-[#F1ECE6] cursor-pointer"
+                  onDragOver={handleDragOver}
+                  onDrop={(e) => handleDropOnTable(e, table.id)}
                 >
-                  {guestName}
+                  <div className="flex justify-between items-start mb-4">
+                    <h3 className="font-display text-2xl font-semibold text-[#2F2F2F]">Table {table.tableNumber}</h3>
+                    {editingTableId === table.id ? (
+                      <div className="flex gap-2 items-center">
+                        <input
+                          type="number"
+                          min="1"
+                          value={editingTableCapacity}
+                          onChange={(e) => setEditingTableCapacity(parseInt(e.target.value))}
+                          className="w-16 px-2 py-1 border border-[#F1ECE6] rounded text-center text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
+                        />
+                        <button
+                          onClick={() => saveTableCapacity(table.id)}
+                          className="px-2 py-1 bg-[#8FAF9A] text-white rounded text-sm font-medium"
+                        >
+                          ✓
+                        </button>
+                        <button
+                          onClick={cancelEditingTable}
+                          className="px-2 py-1 bg-[#6B6B6B] text-white rounded text-sm font-medium"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="flex gap-2 items-center text-sm">
+                        <span className="font-semibold text-[#2F2F2F] cursor-pointer hover:text-[#8FAF9A]" onClick={() => startEditingTableCapacity(table)}>
+                          {table.guests.length}/{table.capacity}
+                        </span>
+                        <button
+                          onClick={() => startEditingTableCapacity(table)}
+                          className="text-xs text-[#8FAF9A] hover:text-[#7A9988] font-medium"
+                        >
+                          edit
+                        </button>
+                        <button
+                          onClick={() => removeTable(table.id)}
+                          className="text-xs text-[#D8A7A1] hover:text-[#C89691] font-medium"
+                        >
+                          remove
+                        </button>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Capacity Bar */}
+                  <div className="w-full bg-[#F1ECE6] rounded-full h-2 mb-4">
+                    <div
+                      className="bg-[#8FAF9A] h-2 rounded-full transition-all"
+                      style={{ width: `${(table.guests.length / table.capacity) * 100}%` }}
+                    />
+                  </div>
+
+                  {/* Guest List */}
+                  <div className="space-y-2">
+                    {table.guests.map((guest) => (
+                      <div
+                        key={guest}
+                        draggable
+                        onDragStart={(e) => handleDragStart(e, guest, table.id)}
+                        className="flex justify-between items-center bg-[#F1ECE6] bg-opacity-50 p-3 rounded cursor-move hover:bg-opacity-75 transition-all"
+                      >
+                        <span className="font-medium text-[#2F2F2F]">{guest}</span>
+                        <button
+                          onClick={() => removeGuestFromTable(table.id, guest)}
+                          className="text-[#D8A7A1] hover:text-[#C89691] font-semibold text-sm"
+                        >
+                          ✕
+                        </button>
+                      </div>
+                    ))}
+                    {table.guests.length === 0 && (
+                      <p className="text-[#6B6B6B] italic text-center py-4">
+                        Drag guests here
+                      </p>
+                    )}
+                  </div>
                 </div>
               ))}
-          </div>
-          {guests.filter((g) => !tables.some((t) => t.guests.includes(g.name))).length === 0 && (
-            <p className="text-gray-500 dark:text-gray-400 italic">All guests assigned to tables</p>
-          )}
-        </div>
+            </div>
+
+            {/* Unassigned Guests */}
+            <div className="wedding-card">
+              <h3 className="font-display text-xl font-semibold text-[#2F2F2F] mb-4">Unassigned Guests</h3>
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                {guests
+                  .map((g) => g.name)
+                  .filter((name) => !tables.some((t) => t.guests.includes(name)))
+                  .map((guestName) => (
+                    <div
+                      key={guestName}
+                      draggable
+                      onDragStart={(e) => handleDragStart(e, guestName)}
+                      className="bg-[#FAF8F4] border border-[#F1ECE6] p-3 rounded cursor-move hover:bg-[#F1ECE6] transition-colors text-center font-medium text-[#2F2F2F]"
+                    >
+                      {guestName}
+                    </div>
+                  ))}
+              </div>
+              {guests.filter((g) => !tables.some((t) => t.guests.includes(g.name))).length === 0 && (
+                <p className="text-[#6B6B6B] italic">All guests assigned to tables</p>
+              )}
+            </div>
           </>
         )}
       </div>
-    </main>
+        </>
+      </div>
+    </div>
   );
 }
