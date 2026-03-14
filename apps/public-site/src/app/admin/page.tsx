@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useI18n } from '../i18n';
 
 const ADMIN_CODE = process.env.NEXT_PUBLIC_ADMIN_ACCESS_CODE;
 const ADMIN_DASHBOARD_URL =
@@ -8,6 +9,7 @@ const ADMIN_DASHBOARD_URL =
 const STORAGE_KEY = 'weddingAdminAuthed';
 
 export default function AdminLoginPage() {
+  const { t } = useI18n();
   const [code, setCode] = useState('');
   const [error, setError] = useState('');
   const [isReady, setIsReady] = useState(false);
@@ -30,12 +32,12 @@ export default function AdminLoginPage() {
     setError('');
 
     if (!ADMIN_CODE) {
-      setError('Admin access code is not configured.');
+      setError(t('admin.error_config'));
       return;
     }
 
     if (code.trim() !== ADMIN_CODE) {
-      setError('Incorrect access code.');
+      setError(t('admin.error_invalid'));
       return;
     }
 
@@ -49,24 +51,24 @@ export default function AdminLoginPage() {
     <main className="min-h-screen bg-[#F8F6F1]">
       <div className="max-w-md mx-auto px-4 sm:px-6 lg:px-8 py-24">
         <h1 className="text-4xl font-bold text-center text-[#2F2F2F] mb-4">
-          Bride & Groom Login
+          {t('admin.title')}
         </h1>
         <p className="text-center text-[#6B6B6B] mb-10">
-          Enter the access code to open the admin dashboard.
+          {t('admin.subtitle')}
         </p>
 
         <div className="bg-white p-8 rounded-lg shadow-lg border border-[#F1ECE6]">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label className="block font-semibold mb-2 text-[#2F2F2F]">
-                Access Code
+                {t('admin.code')}
               </label>
               <input
                 type="password"
                 value={code}
                 onChange={(e) => setCode(e.target.value)}
                 className="w-full px-4 py-2 border border-[#F1ECE6] rounded-lg bg-white text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
-                placeholder="Enter code"
+                placeholder={t('admin.placeholder')}
               />
             </div>
 
@@ -80,14 +82,14 @@ export default function AdminLoginPage() {
               type="submit"
               className="w-full px-6 py-3 bg-[#8FAF9A] text-white rounded-lg hover:bg-[#7A9988] transition font-semibold"
             >
-              Continue to Dashboard
+              {t('admin.continue')}
             </button>
           </form>
         </div>
 
         <div className="mt-8 text-center">
           <a href="/" className="text-[#8FAF9A] hover:text-[#7A9988] font-semibold">
-            ← Back to Home
+            {t('admin.back')}
           </a>
         </div>
       </div>

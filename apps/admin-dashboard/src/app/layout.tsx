@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Playfair_Display, Inter } from "next/font/google";
 
 import "./styles/globals.css";
+import { LanguageProvider } from "./i18n";
+import LanguageToggle from "./components/LanguageToggle";
 
 const playfairDisplay = Playfair_Display({
   subsets: ["latin"],
@@ -27,7 +29,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${playfairDisplay.variable} ${inter.variable} antialiased`}>
-        {children}
+        <LanguageProvider>
+          {children}
+          <LanguageToggle />
+        </LanguageProvider>
       </body>
     </html>
   );

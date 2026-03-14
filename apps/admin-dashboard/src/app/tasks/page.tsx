@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useI18n } from '../i18n';
 
 interface Task {
   id: string;
@@ -12,6 +13,7 @@ interface Task {
 }
 
 export default function TasksPage() {
+  const { t } = useI18n();
   const [tasks, setTasks] = useState<Task[]>([
     {
       id: '1',
@@ -107,8 +109,8 @@ export default function TasksPage() {
   return (
     <div className="min-h-screen p-8 bg-[#F8F6F1]">
       <div className="max-w-6xl mx-auto">
-        <h1 className="font-display text-5xl font-bold text-[#2F2F2F] mb-2">Wedding Tasks</h1>
-        <p className="text-[#6B6B6B] mb-8">Keep track of all wedding planning tasks</p>
+        <h1 className="font-display text-5xl font-bold text-[#2F2F2F] mb-2">{t('tasks.title')}</h1>
+        <p className="text-[#6B6B6B] mb-8">{t('tasks.subtitle')}</p>
 
         {/* Progress */}
         <div className="wedding-card p-6 rounded-lg shadow mb-8">
@@ -161,7 +163,7 @@ export default function TasksPage() {
               onClick={addTask}
               className="px-6 py-2 bg-[#8FAF9A] text-white rounded-lg hover:bg-[#7A9988] font-display"
             >
-              Add Task
+              {t('tasks.add_task')}
             </button>
           </div>
         </div>
@@ -174,7 +176,7 @@ export default function TasksPage() {
           }).map((task) => (
             editingId === task.id && editingTask ? (
               <div key={task.id} className="wedding-card p-6 rounded-lg shadow mb-4">
-                <h3 className="text-lg font-semibold mb-4">Edit Task</h3>
+                <h3 className="text-lg font-semibold mb-4">{t('tasks.edit_task')}</h3>
                 <div className="grid md:grid-cols-2 gap-4 mb-4">
                   <input
                     type="text"
@@ -213,13 +215,13 @@ export default function TasksPage() {
                     onClick={saveTask}
                     className="px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
                   >
-                    Save
+                    {t('common.save')}
                   </button>
                   <button
                     onClick={cancelEditing}
                     className="px-4 py-2 bg-gray-600 text-white rounded hover:bg-gray-700"
                   >
-                    Cancel
+                    {t('common.cancel')}
                   </button>
                 </div>
               </div>
@@ -259,13 +261,13 @@ export default function TasksPage() {
                     onClick={() => startEditing(task)}
                     className="px-3 py-1 bg-[#8FAF9A] text-white rounded text-sm font-medium hover:bg-[#7A9988] text-sm"
                   >
-                    Edit
+                    {t('common.edit')}
                   </button>
                   <button
                     onClick={() => deleteTask(task.id)}
                     className="px-3 py-1 bg-red-600 text-white rounded text-sm font-medium hover:bg-red-700 text-sm font-display"
                   >
-                    Delete
+                    {t('common.delete')}
                   </button>
                 </div>
               </div>

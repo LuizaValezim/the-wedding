@@ -5,5 +5,5 @@ export default function VenuesLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <DashboardLayout title="Venues">{children}</DashboardLayout>;
+  return <DashboardLayout title="Venues" titleKey="venues.title">{children}</DashboardLayout>;
 }

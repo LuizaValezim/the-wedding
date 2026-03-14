@@ -5,5 +5,5 @@ export default function InspirationsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <DashboardLayout title="Inspirations">{children}</DashboardLayout>;
+  return <DashboardLayout title="Inspirations" titleKey="inspirations.title">{children}</DashboardLayout>;
 }

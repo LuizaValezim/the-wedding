@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useI18n } from './i18n';
 
 interface Guest {
   id: string;
@@ -23,6 +24,7 @@ interface BudgetItem {
 
 export default function Dashboard() {
   const pathname = usePathname();
+  const { t } = useI18n();
   const [guests, setGuests] = useState<Guest[]>([]);
   const [budgetItems, setBudgetItems] = useState<BudgetItem[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -75,14 +77,14 @@ export default function Dashboard() {
   };
 
   const menuItems = [
-    { href: '/', label: 'Overview', icon: '📊' },
-    { href: '/guests', label: 'Guests', icon: '👥' },
-    { href: '/budget', label: 'Budget', icon: '💰' },
-    { href: '/venues', label: 'Venues', icon: '🏛️' },
-    { href: '/suppliers', label: 'Suppliers', icon: '🏢' },
-    { href: '/tasks', label: 'Checklist', icon: '✓' },
-    { href: '/inspirations', label: 'Inspirations', icon: '🎨' },
-    { href: '/honeymoon', label: 'Honeymoon', icon: '✈️' },
+    { href: '/', label: t('menu.overview'), icon: '📊' },
+    { href: '/guests', label: t('menu.guests'), icon: '👥' },
+    { href: '/budget', label: t('menu.budget'), icon: '💰' },
+    { href: '/venues', label: t('menu.venues'), icon: '🏛️' },
+    { href: '/suppliers', label: t('menu.suppliers'), icon: '🏢' },
+    { href: '/tasks', label: t('menu.tasks'), icon: '✓' },
+    { href: '/inspirations', label: t('menu.inspirations'), icon: '🎨' },
+    { href: '/honeymoon', label: t('menu.honeymoon'), icon: '✈️' },
   ];
 
   const isActive = (href: string) => {
@@ -98,7 +100,7 @@ export default function Dashboard() {
       <aside className="dashboard-sidebar">
         <div className="mb-8">
           <h1 className="font-display text-2xl font-semibold text-[#2F2F2F]">The Wedding</h1>
-          <p className="text-sm text-[#6B6B6B] mt-1">Planning Dashboard</p>
+          <p className="text-sm text-[#6B6B6B] mt-1">{t('layout.planning_dashboard')}</p>
         </div>
         
         <nav className="space-y-2">
@@ -119,9 +121,9 @@ export default function Dashboard() {
         </nav>
 
         <div className="border-t border-[#F1ECE6] mt-8 pt-8">
-          <p className="text-xs text-[#6B6B6B] font-semibold mb-4 uppercase">Account</p>
+          <p className="text-xs text-[#6B6B6B] font-semibold mb-4 uppercase">{t('layout.account')}</p>
           <button className="w-full text-left px-4 py-3 text-red-600 rounded-lg hover:bg-red-50 hover:text-red-700 transition-colors font-medium">
-            Logout
+            {t('common.logout')}
           </button>
         </div>
       </aside>
@@ -132,8 +134,8 @@ export default function Dashboard() {
         <header className="dashboard-header">
           <div className="flex justify-between items-center">
             <div>
-              <h2 className="font-display text-2xl font-light text-[#2F2F2F]">Welcome</h2>
-              <p className="text-sm text-[#6B6B6B] mt-1">Bride & Groom Dashboard</p>
+              <h2 className="font-display text-2xl font-light text-[#2F2F2F]">{t('dashboard.overview')}</h2>
+              <p className="text-sm text-[#6B6B6B] mt-1">{t('dashboard.title')}</p>
             </div>
             <div className="flex gap-3">
               <a 
@@ -142,10 +144,10 @@ export default function Dashboard() {
                 rel="noopener noreferrer"
                 className="px-4 py-2 border border-[#8FAF9A] text-[#8FAF9A] rounded-lg hover:bg-[#F1ECE6] transition-colors text-sm font-medium"
               >
-                View Public Site
+                {t('dashboard.public_site')}
               </a>
               <button className="px-4 py-2 border border-[#F1ECE6] text-[#2F2F2F] rounded-lg hover:bg-[#FAF8F4] transition-colors text-sm font-medium">
-                Settings
+                {t('common.settings')}
               </button>
             </div>
           </div>
@@ -155,11 +157,11 @@ export default function Dashboard() {
         <div className="dashboard-content space-y-8">
           {/* Stats Grid */}
           <div>
-            <h3 className="font-display text-xl font-semibold text-[#2F2F2F] mb-6">Overview</h3>
+            <h3 className="font-display text-xl font-semibold text-[#2F2F2F] mb-6">{t('dashboard.overview')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {/* Total Cost Card */}
               <div className="stat-card">
-                <div className="stat-card-header">Total Budget</div>
+                <div className="stat-card-header">{t('dashboard.total_budget')}</div>
                 <div className="stat-card-value">
                   ${totalEstimatedCost.toLocaleString()}
                 </div>
@@ -170,7 +172,7 @@ export default function Dashboard() {
 
               {/* Guests Card */}
               <div className="stat-card">
-                <div className="stat-card-header">Total Guests</div>
+                <div className="stat-card-header">{t('dashboard.total_guests')}</div>
                 <div className="stat-card-value">{totalPeople}</div>
                 <div className="stat-card-change">
                   {rsvpConfirmed} confirmed, {totalPlusOnes} plus ones
@@ -179,7 +181,7 @@ export default function Dashboard() {
 
               {/* RSVP Card */}
               <div className="stat-card">
-                <div className="stat-card-header">RSVP Status</div>
+                <div className="stat-card-header">{t('dashboard.rsvp_status')}</div>
                 <div className="stat-card-value">{rsvpResponsePercentage}%</div>
                 <div className="stat-card-change">
                   {totalGuests > 0 
@@ -191,7 +193,7 @@ export default function Dashboard() {
 
               {/* Honeymoon Fund Card */}
               <div className="stat-card">
-                <div className="stat-card-header">Honeymoon Fund</div>
+                <div className="stat-card-header">{t('dashboard.honeymoon')}</div>
                 <div className="stat-card-value">${stats.honeymoonFunded.toLocaleString()}</div>
                 <div className="stat-card-change">
                   ${stats.honeymoonGoal.toLocaleString()} goal
@@ -202,15 +204,15 @@ export default function Dashboard() {
 
           {/* Quick Actions */}
           <div>
-            <h3 className="font-display text-xl font-semibold text-[#2F2F2F] mb-6">Quick Actions</h3>
+            <h3 className="font-display text-xl font-semibold text-[#2F2F2F] mb-6">{t('dashboard.quick_actions')}</h3>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
               <Link
                 href="/guests"
                 className="wedding-card hover:border-[#8FAF9A] cursor-pointer text-center py-8 hover:shadow-lg"
               >
                 <div className="text-3xl mb-3">👥</div>
-                <h4 className="font-semibold text-[#2F2F2F] mb-1">Manage Guests</h4>
-                <p className="text-sm text-[#6B6B6B]">Add & track guests</p>
+                <h4 className="font-semibold text-[#2F2F2F] mb-1">{t('dashboard.manage_guests')}</h4>
+                <p className="text-sm text-[#6B6B6B]">{t('dashboard.quick_guests_body')}</p>
               </Link>
               
               <Link
@@ -218,8 +220,8 @@ export default function Dashboard() {
                 className="wedding-card hover:border-[#8FAF9A] cursor-pointer text-center py-8 hover:shadow-lg"
               >
                 <div className="text-3xl mb-3">💰</div>
-                <h4 className="font-semibold text-[#2F2F2F] mb-1">Budget Planning</h4>
-                <p className="text-sm text-[#6B6B6B]">Track expenses</p>
+                <h4 className="font-semibold text-[#2F2F2F] mb-1">{t('dashboard.budget_planning')}</h4>
+                <p className="text-sm text-[#6B6B6B]">{t('dashboard.quick_budget_body')}</p>
               </Link>
 
               <Link
@@ -227,8 +229,8 @@ export default function Dashboard() {
                 className="wedding-card hover:border-[#8FAF9A] cursor-pointer text-center py-8 hover:shadow-lg"
               >
                 <div className="text-3xl mb-3">✈️</div>
-                <h4 className="font-semibold text-[#2F2F2F] mb-1">Honeymoon Fund</h4>
-                <p className="text-sm text-[#6B6B6B]">Manage donations</p>
+                <h4 className="font-semibold text-[#2F2F2F] mb-1">{t('dashboard.honeymoon_fund')}</h4>
+                <p className="text-sm text-[#6B6B6B]">{t('dashboard.quick_honeymoon_body')}</p>
               </Link>
             </div>
           </div>
@@ -236,16 +238,16 @@ export default function Dashboard() {
           {/* Recent Activity */}
           {guests.length > 0 && (
             <div>
-              <h3 className="font-display text-xl font-semibold text-[#2F2F2F] mb-6">Recent Guests</h3>
+              <h3 className="font-display text-xl font-semibold text-[#2F2F2F] mb-6">{t('dashboard.recent_guests')}</h3>
               <div className="wedding-card">
                 <div className="overflow-x-auto">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b border-[#F1ECE6]">
-                        <th className="text-left py-3 px-4 font-semibold text-[#2F2F2F]">Name</th>
-                        <th className="text-left py-3 px-4 font-semibold text-[#2F2F2F]">Email</th>
-                        <th className="text-left py-3 px-4 font-semibold text-[#2F2F2F]">Status</th>
-                        <th className="text-left py-3 px-4 font-semibold text-[#2F2F2F]">Plus Ones</th>
+                        <th className="text-left py-3 px-4 font-semibold text-[#2F2F2F]">{t('dashboard.recent_table.name')}</th>
+                        <th className="text-left py-3 px-4 font-semibold text-[#2F2F2F]">{t('dashboard.recent_table.email')}</th>
+                        <th className="text-left py-3 px-4 font-semibold text-[#2F2F2F]">{t('dashboard.recent_table.status')}</th>
+                        <th className="text-left py-3 px-4 font-semibold text-[#2F2F2F]">{t('dashboard.recent_table.plus_ones')}</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -279,13 +281,13 @@ export default function Dashboard() {
             <div className="text-center py-16">
               <div className="text-5xl mb-4">👋</div>
               <h3 className="font-display text-2xl font-light text-[#2F2F2F] mb-2">
-                Welcome to Your Wedding Dashboard
+                {t('dashboard.empty_title')}
               </h3>
               <p className="text-[#6B6B6B] mb-6 max-w-md mx-auto">
-                Start planning your wedding by adding guests, managing your budget, and organizing your honeymoon fund.
+                {t('dashboard.empty_body')}
               </p>
               <Link href="/guests" className="wedding-button-primary">
-                Add Your First Guest
+                {t('dashboard.empty_cta')}
               </Link>
             </div>
           )}

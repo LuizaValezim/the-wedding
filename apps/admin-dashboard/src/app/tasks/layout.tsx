@@ -5,5 +5,5 @@ export default function TasksLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <DashboardLayout title="Wedding Checklist">{children}</DashboardLayout>;
+  return <DashboardLayout title="Wedding Checklist" titleKey="menu.tasks">{children}</DashboardLayout>;
 }

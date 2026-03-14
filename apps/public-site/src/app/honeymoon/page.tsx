@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { useI18n } from '../i18n';
 
 interface FundItem {
   id: string;
@@ -12,6 +13,7 @@ interface FundItem {
 }
 
 export default function HoneymoonPage() {
+  const { t } = useI18n();
   const [items, setItems] = useState<FundItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [totalProgress, setTotalProgress] = useState(0);
@@ -45,14 +47,12 @@ export default function HoneymoonPage() {
   return (
     <main className="min-h-screen bg-[#F8F6F1]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h1 className="text-5xl font-bold mb-4 text-center text-[#2F2F2F]">Honeymoon Fund</h1>
-        <p className="text-center text-[#6B6B6B] mb-12 text-xl">
-          Help us create unforgettable memories on our dream honeymoon in Italy
-        </p>
+        <h1 className="text-5xl font-bold mb-4 text-center text-[#2F2F2F]">{t('honeymoon.title')}</h1>
+        <p className="text-center text-[#6B6B6B] mb-12 text-xl">{t('honeymoon.subtitle')}</p>
 
         {/* Overall Progress */}
         <div className="bg-white p-8 rounded-lg mb-12 shadow-lg border border-[#F1ECE6]">
-          <h2 className="text-2xl font-bold mb-4 text-[#2F2F2F]">Overall Progress</h2>
+          <h2 className="text-2xl font-bold mb-4 text-[#2F2F2F]">{t('honeymoon.progress')}</h2>
           <div className="w-full bg-[#E3EDE7] rounded-full h-4 mb-4">
             <div
               className="bg-[#8FAF9A] h-4 rounded-full transition-all"
@@ -60,7 +60,7 @@ export default function HoneymoonPage() {
             />
           </div>
           <p className="text-center text-[#6B6B6B]">
-            {Math.round(totalProgress)}% funded
+            {t('honeymoon.funded', { percent: Math.round(totalProgress) })}
           </p>
         </div>
 
@@ -92,7 +92,7 @@ export default function HoneymoonPage() {
                     />
                   </div>
                   <p className="text-sm text-[#6B6B6B] mt-1">
-                    ${parseFloat(item.fundedAmount).toLocaleString()} contributed
+                    {t('honeymoon.contributed', { amount: `$${parseFloat(item.fundedAmount).toLocaleString()}` })}
                   </p>
                 </div>
               )}
@@ -101,7 +101,7 @@ export default function HoneymoonPage() {
                 href={`/contribute/${item.id}?amount=${item.price}`}
                 className="block w-full px-4 py-2 bg-[#8FAF9A] text-white rounded-lg hover:bg-[#7A9988] transition text-center font-semibold"
               >
-                Contribute
+                {t('honeymoon.contribute')}
               </Link>
             </div>
           ))}
@@ -112,7 +112,7 @@ export default function HoneymoonPage() {
             href="/" 
             className="text-[#8FAF9A] hover:text-[#7A9988] font-semibold"
           >
-            ← Back to Home
+            {t('honeymoon.back')}
           </a>
         </div>
       </div>

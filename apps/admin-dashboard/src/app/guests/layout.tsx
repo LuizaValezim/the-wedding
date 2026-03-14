@@ -5,5 +5,5 @@ export default function GuestsLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <DashboardLayout title="Manage Guests">{children}</DashboardLayout>;
+  return <DashboardLayout title="Manage Guests" titleKey="guests.title">{children}</DashboardLayout>;
 }

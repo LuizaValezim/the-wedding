@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import { useI18n } from '../i18n';
 
 type VenueStatus =
   | 'researching'
@@ -69,6 +70,7 @@ const statusBadge = (status: VenueStatus) => {
 };
 
 export default function VenuesPage() {
+  const { t } = useI18n();
   const [venues, setVenues] = useState<Venue[]>([]);
   const [costInput, setCostInput] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
@@ -212,13 +214,13 @@ export default function VenuesPage() {
   return (
     <div className="min-h-screen p-8 bg-[#F8F6F1]">
       <div className="max-w-6xl mx-auto">
-        <h1 className="font-display text-5xl font-bold text-[#2F2F2F] mb-2">Venue Management</h1>
-        <p className="text-[#6B6B6B] mb-8">Compare and manage potential wedding venues</p>
+        <h1 className="font-display text-5xl font-bold text-[#2F2F2F] mb-2">{t('venues.title')}</h1>
+        <p className="text-[#6B6B6B] mb-8">{t('venues.subtitle')}</p>
 
         <div className="space-y-8">
           {/* Add Venue */}
           <div className="wedding-card p-6 rounded-lg shadow">
-            <h2 className="font-display text-2xl font-semibold text-[#2F2F2F] mb-4">Add Venue</h2>
+            <h2 className="font-display text-2xl font-semibold text-[#2F2F2F] mb-4">{t('venues.add_venue')}</h2>
             <div className="grid md:grid-cols-3 gap-4">
               <input
                 type="text"
@@ -380,7 +382,7 @@ export default function VenuesPage() {
             </div>
             <div className="mt-4">
               <button onClick={addVenue} className="wedding-button-primary">
-                + Add Venue
+                + {t('venues.add_venue')}
               </button>
             </div>
           </div>
@@ -389,8 +391,8 @@ export default function VenuesPage() {
           {venues.length === 0 ? (
             <div className="wedding-card text-center py-12">
               <div className="text-5xl mb-4">🏛️</div>
-              <h3 className="font-display text-2xl font-light text-[#2F2F2F] mb-2">No Venues Added Yet</h3>
-              <p className="text-[#6B6B6B]">Start adding venues to compare and track your options</p>
+              <h3 className="font-display text-2xl font-light text-[#2F2F2F] mb-2">{t('venues.no_venues')}</h3>
+              <p className="text-[#6B6B6B]">{t('venues.no_venues_body')}</p>
             </div>
           ) : (
             <div className="wedding-card rounded-lg shadow">

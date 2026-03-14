@@ -5,5 +5,5 @@ export default function TablesLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <DashboardLayout title="Seating Tables">{children}</DashboardLayout>;
+  return <DashboardLayout title="Seating Tables" titleKey="tables.title">{children}</DashboardLayout>;
 }

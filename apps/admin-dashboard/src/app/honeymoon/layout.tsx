@@ -5,5 +5,5 @@ export default function HoneymoonLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <DashboardLayout title="Honeymoon Fund">{children}</DashboardLayout>;
+  return <DashboardLayout title="Honeymoon Fund" titleKey="honeymoon.title">{children}</DashboardLayout>;
 }

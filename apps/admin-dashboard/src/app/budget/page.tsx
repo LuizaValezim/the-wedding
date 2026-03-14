@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useI18n } from '../i18n';
 
 interface BudgetItem {
   id: string;
@@ -11,6 +12,7 @@ interface BudgetItem {
 }
 
 export default function BudgetPage() {
+  const { t } = useI18n();
   const initialItems = [
     { id: '1', category: 'Venue', description: 'Wedding hall rental', estimated: 5000, actual: 5200 },
     { id: '2', category: 'Catering', description: 'Food & beverages for 200 guests', estimated: 8000, actual: 7800 },
@@ -111,8 +113,8 @@ export default function BudgetPage() {
   return (
     <div className="min-h-screen p-8 bg-[#F8F6F1]">
       <div className="max-w-6xl mx-auto">
-        <h1 className="font-display text-5xl font-bold text-[#2F2F2F] mb-2">Budget Planning</h1>
-        <p className="text-[#6B6B6B] mb-8">Track your wedding expenses and budget</p>
+        <h1 className="font-display text-5xl font-bold text-[#2F2F2F] mb-2">{t('budget.title')}</h1>
+        <p className="text-[#6B6B6B] mb-8">{t('budget.subtitle')}</p>
 
         <div className="space-y-6">
 
@@ -122,7 +124,7 @@ export default function BudgetPage() {
           <div className="wedding-card p-6 rounded-lg shadow border-2 border-[#F1ECE6]">
             <div className="flex justify-between items-start mb-4">
               <div>
-                <p className="text-[#6B6B6B] mb-1 font-semibold">Total Wedding Budget</p>
+                <p className="text-[#6B6B6B] mb-1 font-semibold">{t('budget.total_wedding_budget')}</p>
                 {editingBudgetGoal ? (
                   <div className="flex gap-2 items-center">
                     <input
@@ -163,7 +165,7 @@ export default function BudgetPage() {
               </div>
             </div>
             <div className="mt-6">
-              <p className="text-sm text-[#6B6B6B] mb-2">Budget Usage</p>
+              <p className="text-sm text-[#6B6B6B] mb-2">{t('budget.budget_usage')}</p>
               <div className="w-full bg-[#E3EDE7] rounded-full h-3">
                 <div
                   className="h-3 rounded-full transition-all bg-[#8FAF9A]"
@@ -172,9 +174,13 @@ export default function BudgetPage() {
               </div>
               <p className="text-sm mt-2 font-semibold">
                 {budgetUsage > 100 ? (
-                  <span className="text-red-600">Over budget by ${(totalEstimated - totalWeddingBudget).toLocaleString()}</span>
+                  <span className="text-red-600">
+                    {t('budget.over_budget', { amount: `$${(totalEstimated - totalWeddingBudget).toLocaleString()}` })}
+                  </span>
                 ) : (
-                  <span className="text-green-600">${(totalWeddingBudget - totalEstimated).toLocaleString()} remaining</span>
+                  <span className="text-green-600">
+                    {t('budget.remaining', { amount: `$${(totalWeddingBudget - totalEstimated).toLocaleString()}` })}
+                  </span>
                 )}
               </p>
             </div>
@@ -183,12 +189,12 @@ export default function BudgetPage() {
           {/* Budget Stats Grid */}
           <div className="grid grid-cols-2 gap-4">
             <div className="wedding-card p-6 rounded-lg shadow">
-              <p className="text-[#6B6B6B] font-semibold">Total Estimated</p>
+              <p className="text-[#6B6B6B] font-semibold">{t('budget.total_estimated')}</p>
               <p className="text-3xl font-bold font-display text-[#2F2F2F]">${totalEstimated.toLocaleString()}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">{((totalEstimated / totalWeddingBudget) * 100).toFixed(1)}% of budget</p>
             </div>
             <div className="wedding-card p-6 rounded-lg shadow">
-              <p className="text-[#6B6B6B] font-semibold">Total Spent</p>
+              <p className="text-[#6B6B6B] font-semibold">{t('budget.total_spent')}</p>
               <p className="text-3xl font-bold font-display text-[#2F2F2F]">${totalActual.toLocaleString()}</p>
               <p className="text-xs text-gray-500 dark:text-gray-400 mt-2">{((totalActual / totalEstimated) * 100).toFixed(1)}% invoiced</p>
             </div>
@@ -197,7 +203,7 @@ export default function BudgetPage() {
 
         {/* Add Budget Item */}
         <div className="wedding-card p-6 rounded-lg shadow mb-8">
-          <h2 className="font-display text-2xl font-semibold text-[#2F2F2F] mb-4">Add Budget Item</h2>
+          <h2 className="font-display text-2xl font-semibold text-[#2F2F2F] mb-4">{t('budget.add_item')}</h2>
           <div className="grid md:grid-cols-4 gap-4">
             <input
               type="text"
@@ -234,13 +240,13 @@ export default function BudgetPage() {
           <table className="w-full">
             <thead className="bg-white">
               <tr>
-                <th className="px-6 py-3 text-left font-semibold">Category</th>
-                <th className="px-6 py-3 text-left font-semibold">Description</th>
-                <th className="px-6 py-3 text-right font-semibold">Estimated</th>
-                <th className="px-6 py-3 text-right font-semibold">Actual</th>
-                <th className="px-6 py-3 text-right font-semibold">Difference</th>
-                <th className="px-6 py-3 text-left font-semibold whitespace-nowrap">Status</th>
-                <th className="px-6 py-3 text-left font-semibold whitespace-nowrap">Actions</th>
+                <th className="px-6 py-3 text-left font-semibold">{t('budget.table.category')}</th>
+                <th className="px-6 py-3 text-left font-semibold">{t('budget.table.description')}</th>
+                <th className="px-6 py-3 text-right font-semibold">{t('budget.table.estimated')}</th>
+                <th className="px-6 py-3 text-right font-semibold">{t('budget.table.actual')}</th>
+                <th className="px-6 py-3 text-right font-semibold">{t('budget.table.difference')}</th>
+                <th className="px-6 py-3 text-left font-semibold whitespace-nowrap">{t('budget.table.status')}</th>
+                <th className="px-6 py-3 text-left font-semibold whitespace-nowrap">{t('budget.table.actions')}</th>
               </tr>
             </thead>
             <tbody>
@@ -285,7 +291,7 @@ export default function BudgetPage() {
                     </td>
                     <td className="px-6 py-4">
                       <span className="px-3 py-1 rounded-full text-sm font-semibold bg-gray-200 dark:bg-slate-600 whitespace-nowrap">
-                        Editing...
+                        {t('budget.table.editing')}
                       </span>
                     </td>
                     <td className="px-6 py-4">
@@ -294,13 +300,13 @@ export default function BudgetPage() {
                         onClick={saveItem}
                         className="px-3 py-1 bg-[#8FAF9A] text-white rounded text-sm font-medium font-display hover:bg-[#7A9988]"
                       >
-                        Save
+                        {t('common.save')}
                       </button>
                       <button
                         onClick={cancelEditing}
                         className="px-3 py-1 bg-[#6B6B6B] text-white rounded text-sm font-medium font-display hover:bg-[#5A5A5A]"
                       >
-                        Cancel
+                        {t('common.cancel')}
                       </button>
                       </div>
                     </td>
@@ -329,13 +335,13 @@ export default function BudgetPage() {
                           onClick={() => startEditing(item)}
                           className="px-3 py-1 bg-[#8FAF9A] text-white rounded text-sm font-medium font-display hover:bg-[#7A9988]"
                         >
-                          Edit
+                          {t('common.edit')}
                         </button>
                         <button
                           onClick={() => deleteItem(item.id)}
                           className="px-3 py-1 bg-red-600 text-white rounded text-sm font-medium font-display hover:bg-red-700"
                         >
-                          Delete
+                          {t('common.delete')}
                         </button>
                       </div>
                     </td>

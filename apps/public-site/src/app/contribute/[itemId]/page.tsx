@@ -2,8 +2,10 @@
 
 import { useState } from 'react';
 import { useSearchParams } from 'next/navigation';
+import { useI18n } from '../../i18n';
 
 export default function ContributePage({ params }: { params: { itemId: string } }) {
+  const { t } = useI18n();
   const searchParams = useSearchParams();
   const suggestedAmount = searchParams.get('amount') || '0';
   
@@ -54,15 +56,13 @@ export default function ContributePage({ params }: { params: { itemId: string } 
   return (
     <main className="min-h-screen bg-[#F8F6F1]">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h1 className="text-5xl font-bold mb-4 text-center text-[#2F2F2F]">Make a Contribution</h1>
-        <p className="text-center text-[#6B6B6B] mb-12">
-          Help us create unforgettable memories in Italy
-        </p>
+        <h1 className="text-5xl font-bold mb-4 text-center text-[#2F2F2F]">{t('contribute.title')}</h1>
+        <p className="text-center text-[#6B6B6B] mb-12">{t('contribute.subtitle')}</p>
 
         <div className="bg-white p-8 rounded-lg shadow-lg border border-[#F1ECE6]">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block font-semibold mb-2 text-[#2F2F2F]">Contribution Amount *</label>
+              <label className="block font-semibold mb-2 text-[#2F2F2F]">{t('contribute.amount')}</label>
               <div className="flex gap-2">
                 <span className="px-4 py-2 bg-[#F1ECE6] text-[#2F2F2F] rounded-lg">$</span>
                 <input
@@ -78,7 +78,7 @@ export default function ContributePage({ params }: { params: { itemId: string } 
             </div>
 
             <div>
-              <label className="block font-semibold mb-2 text-[#2F2F2F]">Your Email *</label>
+              <label className="block font-semibold mb-2 text-[#2F2F2F]">{t('contribute.email')}</label>
               <input
                 type="email"
                 required
@@ -89,14 +89,14 @@ export default function ContributePage({ params }: { params: { itemId: string } 
             </div>
 
             <div>
-              <label className="block font-semibold mb-2 text-[#2F2F2F]">Payment Method *</label>
+              <label className="block font-semibold mb-2 text-[#2F2F2F]">{t('contribute.payment')}</label>
               <select
                 value={formData.paymentMethod}
                 onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
                 className="w-full px-4 py-2 border border-[#F1ECE6] rounded-lg bg-white text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
               >
-                <option value="stripe">Credit/Debit Card (Stripe)</option>
-                <option value="mercado-pago">Pix / Brazilian Cards (Mercado Pago)</option>
+                <option value="stripe">{t('contribute.payment_stripe')}</option>
+                <option value="mercado-pago">{t('contribute.payment_pix')}</option>
               </select>
             </div>
 
@@ -109,16 +109,16 @@ export default function ContributePage({ params }: { params: { itemId: string } 
                 className="w-4 h-4 accent-[#8FAF9A]"
               />
               <label htmlFor="anonymous" className="font-semibold text-[#2F2F2F]">
-                Make this contribution anonymous
+                {t('contribute.anonymous')}
               </label>
             </div>
 
             <div>
-              <label className="block font-semibold mb-2 text-[#2F2F2F]">Message (Optional)</label>
+              <label className="block font-semibold mb-2 text-[#2F2F2F]">{t('contribute.message')}</label>
               <textarea
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                placeholder="Leave a message for the couple..."
+                placeholder={t('contribute.message.placeholder')}
                 rows={4}
                 className="w-full px-4 py-2 border border-[#F1ECE6] rounded-lg bg-white text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
               />
@@ -135,7 +135,7 @@ export default function ContributePage({ params }: { params: { itemId: string } 
               disabled={loading}
               className="w-full px-6 py-3 bg-[#8FAF9A] text-white rounded-lg hover:bg-[#7A9988] disabled:opacity-50 transition font-semibold"
             >
-              {loading ? 'Processing...' : `Contribute $${formData.amount}`}
+              {loading ? t('contribute.processing') : t('contribute.cta', { amount: `$${formData.amount}` })}
             </button>
           </form>
         </div>
@@ -145,7 +145,7 @@ export default function ContributePage({ params }: { params: { itemId: string } 
             href="/honeymoon" 
             className="text-[#8FAF9A] hover:text-[#7A9988] font-semibold"
           >
-            ← Back to Honeymoon Fund
+            {t('contribute.back')}
           </a>
         </div>
       </div>

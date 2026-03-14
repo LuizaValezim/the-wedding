@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useI18n } from '../i18n';
 
 interface Guest {
   id: string;
@@ -19,6 +20,7 @@ interface Table {
 }
 
 export default function GuestsPage() {
+  const { t } = useI18n();
   const initialGuests = [
     {
       id: '1',
@@ -213,8 +215,8 @@ export default function GuestsPage() {
   return (
     <div className="min-h-screen p-8 bg-[#F8F6F1]">
       <div className="max-w-6xl mx-auto">
-        <h1 className="font-display text-5xl font-bold text-[#2F2F2F] mb-2">Guest Management</h1>
-        <p className="text-[#6B6B6B] mb-8">Manage RSVPs and seating arrangements</p>
+        <h1 className="font-display text-5xl font-bold text-[#2F2F2F] mb-2">{t('guests.title')}</h1>
+        <p className="text-[#6B6B6B] mb-8">{t('guests.subtitle')}</p>
 
         <>
       {/* Tabs */}

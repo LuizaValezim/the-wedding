@@ -5,5 +5,5 @@ export default function SuppliersLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <DashboardLayout title="Suppliers">{children}</DashboardLayout>;
+  return <DashboardLayout title="Suppliers" titleKey="suppliers.title">{children}</DashboardLayout>;
 }

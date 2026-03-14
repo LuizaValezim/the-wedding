@@ -1,30 +1,35 @@
+'use client';
+
+import { useI18n } from "../i18n";
+
 export default function Gallery() {
+  const { t } = useI18n();
   const photos = Array.from({ length: 12 }, (_, i) => ({
     id: i + 1,
-    title: `Memory ${i + 1}`,
-    description: 'Our special moments'
+    title: t('gallery.memory', { index: i + 1 }),
+    description: t('gallery.description'),
   }));
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 dark:from-slate-950 dark:to-slate-900">
+    <main className="min-h-screen bg-[#F8F6F1]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h1 className="text-5xl font-bold mb-4 text-center">Photo Gallery</h1>
-        <p className="text-center text-gray-600 dark:text-gray-400 mb-12">
-          Moments that mean everything to us
+        <h1 className="text-5xl font-bold mb-4 text-center text-[#2F2F2F]">{t('gallery.title')}</h1>
+        <p className="text-center text-[#6B6B6B] mb-12">
+          {t('gallery.subtitle')}
         </p>
         
         <div className="grid md:grid-cols-3 gap-6">
           {photos.map((photo) => (
             <div 
               key={photo.id}
-              className="bg-white dark:bg-slate-800 rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition"
+              className="bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-xl transition border border-[#F1ECE6]"
             >
-              <div className="aspect-square bg-gradient-to-br from-pink-400 to-purple-400 flex items-center justify-center text-white text-4xl">
+              <div className="aspect-square bg-gradient-to-br from-[#8FAF9A] to-[#6B8A79] flex items-center justify-center text-white text-4xl">
                 📷
               </div>
               <div className="p-4">
-                <h3 className="font-bold text-lg">{photo.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{photo.description}</p>
+                <h3 className="font-bold text-lg text-[#2F2F2F]">{photo.title}</h3>
+                <p className="text-[#6B6B6B]">{photo.description}</p>
               </div>
             </div>
           ))}
@@ -33,9 +38,9 @@ export default function Gallery() {
         <div className="mt-12 text-center">
           <a 
             href="/" 
-            className="text-pink-600 hover:text-pink-700 font-semibold"
+            className="text-[#8FAF9A] hover:text-[#7A9988] font-semibold"
           >
-            ← Back to Home
+            {t('gallery.back')}
           </a>
         </div>
       </div>
