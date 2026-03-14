@@ -52,19 +52,19 @@ export default function ContributePage({ params }: { params: { itemId: string } 
   };
 
   return (
-    <main className="min-h-screen bg-gradient-to-br from-pink-50 to-purple-50 dark:from-slate-950 dark:to-slate-900">
+    <main className="min-h-screen bg-[#F8F6F1]">
       <div className="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <h1 className="text-5xl font-bold mb-4 text-center">Make a Contribution</h1>
-        <p className="text-center text-gray-600 dark:text-gray-400 mb-12">
-          Help us create magical memories together
+        <h1 className="text-5xl font-bold mb-4 text-center text-[#2F2F2F]">Make a Contribution</h1>
+        <p className="text-center text-[#6B6B6B] mb-12">
+          Help us create unforgettable memories in Italy
         </p>
 
-        <div className="bg-white dark:bg-slate-800 p-8 rounded-lg shadow-lg">
+        <div className="bg-white p-8 rounded-lg shadow-lg border border-[#F1ECE6]">
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
-              <label className="block font-semibold mb-2">Contribution Amount *</label>
+              <label className="block font-semibold mb-2 text-[#2F2F2F]">Contribution Amount *</label>
               <div className="flex gap-2">
-                <span className="px-4 py-2 bg-gray-100 dark:bg-slate-700 rounded-lg">$</span>
+                <span className="px-4 py-2 bg-[#F1ECE6] text-[#2F2F2F] rounded-lg">$</span>
                 <input
                   type="number"
                   step="0.01"
@@ -72,28 +72,28 @@ export default function ContributePage({ params }: { params: { itemId: string } 
                   min="1"
                   value={formData.amount}
                   onChange={(e) => setFormData({ ...formData, amount: e.target.value })}
-                  className="flex-1 px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-slate-700"
+                  className="flex-1 px-4 py-2 border border-[#F1ECE6] rounded-lg bg-white text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
                 />
               </div>
             </div>
 
             <div>
-              <label className="block font-semibold mb-2">Your Email *</label>
+              <label className="block font-semibold mb-2 text-[#2F2F2F]">Your Email *</label>
               <input
                 type="email"
                 required
                 value={formData.guestEmail}
                 onChange={(e) => setFormData({ ...formData, guestEmail: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-slate-700"
+                className="w-full px-4 py-2 border border-[#F1ECE6] rounded-lg bg-white text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
               />
             </div>
 
             <div>
-              <label className="block font-semibold mb-2">Payment Method *</label>
+              <label className="block font-semibold mb-2 text-[#2F2F2F]">Payment Method *</label>
               <select
                 value={formData.paymentMethod}
                 onChange={(e) => setFormData({ ...formData, paymentMethod: e.target.value })}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-slate-700"
+                className="w-full px-4 py-2 border border-[#F1ECE6] rounded-lg bg-white text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
               >
                 <option value="stripe">Credit/Debit Card (Stripe)</option>
                 <option value="mercado-pago">Pix / Brazilian Cards (Mercado Pago)</option>
@@ -106,26 +106,26 @@ export default function ContributePage({ params }: { params: { itemId: string } 
                 id="anonymous"
                 checked={formData.isAnonymous}
                 onChange={(e) => setFormData({ ...formData, isAnonymous: e.target.checked })}
-                className="w-4 h-4"
+                className="w-4 h-4 accent-[#8FAF9A]"
               />
-              <label htmlFor="anonymous" className="font-semibold">
+              <label htmlFor="anonymous" className="font-semibold text-[#2F2F2F]">
                 Make this contribution anonymous
               </label>
             </div>
 
             <div>
-              <label className="block font-semibold mb-2">Message (Optional)</label>
+              <label className="block font-semibold mb-2 text-[#2F2F2F]">Message (Optional)</label>
               <textarea
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 placeholder="Leave a message for the couple..."
                 rows={4}
-                className="w-full px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-slate-700"
+                className="w-full px-4 py-2 border border-[#F1ECE6] rounded-lg bg-white text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
               />
             </div>
 
             {message && (
-              <div className="p-4 bg-pink-100 dark:bg-pink-900 text-pink-900 dark:text-pink-100 rounded-lg">
+              <div className="p-4 bg-[#F1ECE6] text-[#2F2F2F] rounded-lg border border-[#E6DED5]">
                 {message}
               </div>
             )}
@@ -133,7 +133,7 @@ export default function ContributePage({ params }: { params: { itemId: string } 
             <button
               type="submit"
               disabled={loading}
-              className="w-full px-6 py-3 bg-pink-600 text-white rounded-lg hover:bg-pink-700 disabled:opacity-50 transition font-semibold"
+              className="w-full px-6 py-3 bg-[#8FAF9A] text-white rounded-lg hover:bg-[#7A9988] disabled:opacity-50 transition font-semibold"
             >
               {loading ? 'Processing...' : `Contribute $${formData.amount}`}
             </button>
@@ -143,7 +143,7 @@ export default function ContributePage({ params }: { params: { itemId: string } 
         <div className="mt-8 text-center">
           <a 
             href="/honeymoon" 
-            className="text-pink-600 hover:text-pink-700 font-semibold"
+            className="text-[#8FAF9A] hover:text-[#7A9988] font-semibold"
           >
             ← Back to Honeymoon Fund
           </a>

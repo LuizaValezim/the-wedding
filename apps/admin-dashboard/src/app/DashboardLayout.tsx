@@ -15,7 +15,6 @@ export default function DashboardLayout({ children, title }: DashboardLayoutProp
     { href: '/', label: 'Overview', icon: '📊' },
     { href: '/guests', label: 'Guests', icon: '👥' },
     { href: '/budget', label: 'Budget', icon: '💰' },
-    { href: '/tables', label: 'Tables', icon: '🪑' },
     { href: '/venues', label: 'Venues', icon: '🏛️' },
     { href: '/suppliers', label: 'Suppliers', icon: '🏢' },
     { href: '/tasks', label: 'Checklist', icon: '✓' },
