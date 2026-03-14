@@ -181,18 +181,18 @@ export default function TasksPage() {
                     value={editingTask.title}
                     onChange={(e) => setEditingTask({ ...editingTask, title: e.target.value })}
                     placeholder="Task title"
-                    className="px-4 py-2 border border-[#F1ECE6] rounded-lg"
+                    className="px-4 py-2 border border-[#F1ECE6] rounded-lg bg-white text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
                   />
                   <input
                     type="date"
                     value={editingTask.dueDate}
                     onChange={(e) => setEditingTask({ ...editingTask, dueDate: e.target.value })}
-                    className="px-4 py-2 border border-[#F1ECE6] rounded-lg"
+                    className="px-4 py-2 border border-[#F1ECE6] rounded-lg bg-white text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
                   />
                   <select
                     value={editingTask.priority}
                     onChange={(e) => setEditingTask({ ...editingTask, priority: e.target.value as any })}
-                    className="px-4 py-2 border border-[#F1ECE6] rounded-lg"
+                    className="px-4 py-2 border border-[#F1ECE6] rounded-lg bg-white text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
                   >
                     <option value="low">Low Priority</option>
                     <option value="medium">Medium Priority</option>
@@ -201,7 +201,7 @@ export default function TasksPage() {
                   <select
                     value={editingTask.assignedTo}
                     onChange={(e) => setEditingTask({ ...editingTask, assignedTo: e.target.value as any })}
-                    className="px-4 py-2 border border-gray-300 dark:border-gray-600 rounded-lg dark:bg-slate-600"
+                    className="px-4 py-2 border border-[#F1ECE6] rounded-lg bg-white text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
                   >
                     <option value="bride">Bride</option>
                     <option value="groom">Groom</option>

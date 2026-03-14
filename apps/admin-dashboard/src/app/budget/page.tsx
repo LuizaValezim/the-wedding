@@ -253,7 +253,7 @@ export default function BudgetPage() {
                         type="text"
                         value={editingItem.category}
                         onChange={(e: any) => setEditingItem({ ...editingItem, category: e.target.value })}
-                        className="px-3 py-1 border rounded dark:bg-slate-600 w-full"
+                        className="px-3 py-1 border border-[#F1ECE6] rounded w-full bg-white text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
                       />
                     </td>
                     <td className="px-6 py-4">
@@ -261,7 +261,7 @@ export default function BudgetPage() {
                         type="text"
                         value={editingItem.description}
                         onChange={(e: any) => setEditingItem({ ...editingItem, description: e.target.value })}
-                        className="px-3 py-1 border rounded dark:bg-slate-600 w-full"
+                        className="px-3 py-1 border border-[#F1ECE6] rounded w-full bg-white text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
                       />
                     </td>
                     <td className="px-6 py-4">
@@ -269,7 +269,7 @@ export default function BudgetPage() {
                         type="number"
                         value={editingItem.estimated}
                         onChange={(e: any) => setEditingItem({ ...editingItem, estimated: parseFloat(e.target.value) })}
-                        className="px-3 py-1 border rounded dark:bg-slate-600 w-full text-right"
+                        className="px-3 py-1 border border-[#F1ECE6] rounded w-full text-right bg-white text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
                       />
                     </td>
                     <td className="px-6 py-4">
@@ -277,7 +277,7 @@ export default function BudgetPage() {
                         type="number"
                         value={editingItem.actual}
                         onChange={(e: any) => setEditingItem({ ...editingItem, actual: parseFloat(e.target.value) })}
-                        className="px-3 py-1 border rounded dark:bg-slate-600 w-full text-right"
+                        className="px-3 py-1 border border-[#F1ECE6] rounded w-full text-right bg-white text-[#2F2F2F] focus:outline-none focus:ring-2 focus:ring-[#8FAF9A]"
                       />
                     </td>
                     <td className="px-6 py-4 text-right font-semibold">
