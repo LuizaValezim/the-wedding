@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Countdown from "./components/Countdown";
 
 export default function Home() {
   const adminDashboardUrl =
@@ -16,12 +17,11 @@ export default function Home() {
             <Link href="/" className="wedding-nav-link wedding-nav-link-active">Home</Link>
             <Link href="/our-story" className="wedding-nav-link">Our Story</Link>
             <Link href="/details" className="wedding-nav-link">Details</Link>
-            <Link href="/gallery" className="wedding-nav-link">Gallery</Link>
             <Link href="/rsvp" className="wedding-nav-link">RSVP</Link>
           </div>
           <div className="hidden md:flex gap-4 items-center">
             <Link
-              href={adminDashboardUrl}
+              href="/admin"
               className="wedding-button-primary"
               title="Bride and Groom only"
             >
@@ -71,7 +71,9 @@ export default function Home() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
             <div>
               <p className="text-sm text-[#6B6B6B] mb-2">Days until</p>
-              <p className="text-4xl font-display font-semibold text-[#8FAF9A]">Soon</p>
+              <p className="text-4xl font-display font-semibold text-[#8FAF9A]">
+                <Countdown />
+              </p>
             </div>
             <div>
               <p className="text-sm text-[#6B6B6B] mb-2">Location</p>
@@ -79,7 +81,7 @@ export default function Home() {
             </div>
             <div>
               <p className="text-sm text-[#6B6B6B] mb-2">Time</p>
-              <p className="text-lg font-medium">5:00 PM</p>
+              <p className="text-lg font-medium">4:00 PM</p>
             </div>
             <div>
               <p className="text-sm text-[#6B6B6B] mb-2">Status</p>
